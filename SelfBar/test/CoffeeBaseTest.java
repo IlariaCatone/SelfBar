@@ -14,35 +14,33 @@ import selfbar.StandardCoffeePricing;
 /**
  * Created by Remei on 14/12/2016.
  */
-class CoffeeBaseTest {
+public class CoffeeBaseTest {
     Product coffeeBase;
     PricingStrategy pricingStrategy;
 
+    public CoffeeBaseTest() {
+    }
+
     @Before
-    void setUp() {
+    public void setUp() {
         pricingStrategy = new StandardCoffeePricing();
         coffeeBase = new CoffeeBase("arabica",pricingStrategy);
     }
 
     @Test
-    void getName() {
-        //non può essere provato perchè l'interfaccia non ha il metodo
+    public void getPrice() {
+        double expected = pricingStrategy.getBasePrice();
+        assertEquals(expected, coffeeBase.getPrice(),0);
     }
 
     @Test
-    void getPrice() {
-        int expected = 1;
-        assertEquals(expected, coffeeBase.getPrice());
-    }
-
-    @Test
-    void getDescription() {
+    public void getDescription() {
         String expected = "Caffe base: arabica";
         assertEquals(expected, coffeeBase.getDescription());
     }
 
     @Test
-    void equals() {
+    public void equals() {
         Product mock = new CoffeeBase("arabica",pricingStrategy);
         assertEquals(mock, coffeeBase);
     }

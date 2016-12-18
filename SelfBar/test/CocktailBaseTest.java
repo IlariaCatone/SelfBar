@@ -12,35 +12,34 @@ import selfbar.StandardCocktailPricing;
 /**
  * Created by Remei on 13/12/2016.
  */
-class CocktailBaseTest {
+public class CocktailBaseTest {
+    
     Product baseCoffee;
     PricingStrategy pricingStrategy;
+    
+    public CocktailBaseTest() {
+    }
 
     @Before
-    void setUp() {
+    public void setUp() {
         pricingStrategy = new StandardCocktailPricing();
         baseCoffee = new CocktailBase("vodka",pricingStrategy);
     }
 
     @Test
-    void getName() {
-        //impossibile da testare l'interfaccia non ha il metodo
+    public void getPrice() {
+        double expected = pricingStrategy.getBasePrice();
+        assertEquals(expected, baseCoffee.getPrice(),0);
     }
 
     @Test
-    void getPrice() {
-        double expected = 3.0;
-        assertEquals(expected, baseCoffee.getPrice());
-    }
-
-    @Test
-    void getDescription() {
+    public void getDescription() {
         String expected = "Cocktail base: vodka";
         assertEquals(expected, baseCoffee.getDescription());
     }
 
     @Test
-    void equals() {
+    public void equals() {
         Product mock = new CocktailBase("vodka",pricingStrategy);
         assertEquals(mock, baseCoffee);
     }

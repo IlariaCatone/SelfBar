@@ -13,7 +13,7 @@ public class CoffeeBase implements Coffee {
         this.pricingStrategy = pricingStrategy;
     }
 
-    public String getName() {
+    private String getName() {
         return name;
     }
 

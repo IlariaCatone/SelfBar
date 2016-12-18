@@ -4,43 +4,43 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import selfbar.Cocktail;
-import selfbar.CocktailBase;
-import selfbar.CocktailDecorator;
+import selfbar.Coffee;
+import selfbar.CoffeeBase;
+import selfbar.CoffeeDecorator;
 import selfbar.PricingStrategy;
 import selfbar.Product;
-import selfbar.StandardCocktailPricing;
+import selfbar.StandardCoffeePricing;
+
 
 /**
  * Created by Remei on 13/12/2016.
  */
-public class CocktailDecoratorTest {
+public class CoffeeDecoratorTest {
     Product decoratorCocktail;
     PricingStrategy pricingStrategy;
-    Cocktail baseCocktail;
+    Coffee baseCoffee;
 
-    public CocktailDecoratorTest() {
+    public CoffeeDecoratorTest() {
     }
     
     @Before
     public void setUp() {
-        pricingStrategy = new StandardCocktailPricing();
-        baseCocktail = new CocktailBase("vodka",pricingStrategy);
-        decoratorCocktail = new CocktailDecorator(baseCocktail, "pesca");
+        pricingStrategy = new StandardCoffeePricing();
+        baseCoffee = new CoffeeBase("arabica",pricingStrategy);
+        decoratorCocktail = new CoffeeDecorator(baseCoffee, "panna");
     }
 
     @Test
     public void getPrice() {
         double increase = pricingStrategy.getAddictionPrice();
-        double exptected = baseCocktail.getPrice() + increase;
+        double exptected = baseCoffee.getPrice() + increase;
         assertEquals(exptected, decoratorCocktail.getPrice(),0);
     }
-
-
+    
     @Test
     public void getDescription() {
-        String decoration = "pesca";
-        String expected = baseCocktail.getDescription() + " + " + decoration;
+        String decoration = "panna";
+        String expected = baseCoffee.getDescription() + " + " + decoration;
         assertEquals(expected, decoratorCocktail.getDescription());
     }
 

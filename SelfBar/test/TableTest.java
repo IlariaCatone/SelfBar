@@ -14,30 +14,33 @@ import selfbar.StandardCoffeePricing;
 import selfbar.Table;
 
 /**
- * Created by Remei on 14/12/2016.
+ * Created by Remeic on 14/12/2016.
  */
-class TableTest {
+public class TableTest {
 
     Table table;
     PricingStrategy pricingStrategy;
 
+    public TableTest() {
+    }
+
     @Before
-    void setUp() {
+    public void setUp() {
         table = new Table();
         pricingStrategy = new StandardCoffeePricing();
     }
 
     @Test
-    void addOneProduct() {
+    public void addOneProduct() {
         Product mockProduct = new CoffeeBase("arabica",pricingStrategy);
         ArrayList<Product> mockArray = new ArrayList<Product>();
         mockArray.add(mockProduct);
         table.addProduct(mockProduct);
-        //assertEquals(mockArray, table.getProducts());
+        assertEquals(mockArray, table.getProducts());
     }
 
     @Test
-    void addMoreProduct() {
+    public void addMoreProduct() {
         Product mockProduct = new CoffeeBase("miscela",pricingStrategy);
         Product stubProduct = new CoffeeBase("arabica",pricingStrategy);
         ArrayList<Product> mockArray = new ArrayList<Product>();
@@ -45,20 +48,19 @@ class TableTest {
         mockArray.add(stubProduct);
         table.addProduct(mockProduct);
         table.addProduct(stubProduct);
-        //assertEquals(mockArray, table.getProducts());
+        assertEquals(mockArray, table.getProducts());
     }
 
     @Test
-    void addNoProduct() {
+    public void addNoProduct() {
         ArrayList<Product> mockArray = new ArrayList<Product>();
-        //assertEquals(mockArray, table.getProducts());
+        assertEquals(mockArray, table.getProducts());
     }
 
-
     @Test
-    void getProducts() {
+    public void getProducts() {
         ArrayList<Product> mockArray = new ArrayList<Product>();
-        //assertEquals(mockArray, table.getProducts());
+        assertEquals(mockArray, table.getProducts());
     }
 
 
