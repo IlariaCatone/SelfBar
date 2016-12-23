@@ -15,6 +15,10 @@ public class Table implements Observable{
         this.observers = new ArrayList<>();
     }
 
+    public ArrayList<Product> getProducts() {
+        return products;
+    }
+
     @Override
     public void addObserver(Observer o) {
         observers.add(o);

@@ -13,7 +13,7 @@ public class CocktailBase implements Cocktail {
         this.pricingStrategy = pricingStrategy;
     }
 
-    public String getName() {
+    private String getName() {
         return name;
     }
 
