@@ -5,9 +5,9 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import selfbar.CocktailBase;
-import selfbar.PricingStrategy;
 import selfbar.Product;
 import selfbar.StandardCocktailPricing;
+import selfbar.BasePricingStrategy;
 
 /**
  * Created by Remei on 13/12/2016.
@@ -15,7 +15,7 @@ import selfbar.StandardCocktailPricing;
 public class CocktailBaseTest {
     
     Product baseCoffee;
-    PricingStrategy pricingStrategy;
+    BasePricingStrategy pricingStrategy;
     
     public CocktailBaseTest() {
     }

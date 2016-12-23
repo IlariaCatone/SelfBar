@@ -7,9 +7,9 @@ import static org.junit.Assert.*;
 import selfbar.Coffee;
 import selfbar.CoffeeBase;
 import selfbar.decorations.CoffeeDecorator;
-import selfbar.PricingStrategy;
 import selfbar.Product;
 import selfbar.StandardCoffeePricing;
+import selfbar.BasePricingStrategy;
 
 
 /**
@@ -17,7 +17,7 @@ import selfbar.StandardCoffeePricing;
  */
 public class CoffeeDecoratorTest {
     Product decoratorCocktail;
-    PricingStrategy pricingStrategy;
+    BasePricingStrategy pricingStrategy;
     Coffee baseCoffee;
 
     public CoffeeDecoratorTest() {

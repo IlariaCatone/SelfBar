@@ -10,9 +10,9 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import selfbar.PricingStrategy;
 import selfbar.StandardCocktailPricing;
 import selfbar.StandardCoffeePricing;
+import selfbar.BasePricingStrategy;
 
 /**
  *
@@ -20,7 +20,7 @@ import selfbar.StandardCoffeePricing;
  */
 public class StandardCoffeePricingTest {
     
-    PricingStrategy pricingStrategy;
+    BasePricingStrategy pricingStrategy;
     
     public StandardCoffeePricingTest() {
     }

@@ -15,6 +15,7 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import selfbar.Observer;
 import selfbar.Product;
+import selfbar.Table;
 
 /**
  *
@@ -22,12 +23,13 @@ import selfbar.Product;
  */
 public class Controller implements Observer{
     Gui gui=new Gui();
+    Table table;
     JFrame applicationFrame;
     JPanel cartPanel,additionPanel;
     JList cartList,additionList;
     JLabel totalPriceLabel,priceCoffeeLabel,priceCocktailLabel,coffeeIcon,cocktailIcon;
     JButton addAdditionButton,payButton;
-
+   
     public Controller() {
         initializeComponent();
         initializeGui();
@@ -92,5 +94,10 @@ public class Controller implements Observer{
             });
     }
    
+    public void setTable(Table table){
+        this.table = table;
+    }
+     
     
+            
 }

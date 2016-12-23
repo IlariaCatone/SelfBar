@@ -5,8 +5,9 @@
  */
 package base;
 
+import selfbar.AddictionPricingStrategy;
 import selfbar.Coffee;
-import selfbar.PricingStrategy;
+import selfbar.BasePricingStrategy;
 
 /**
  *
@@ -15,11 +16,13 @@ import selfbar.PricingStrategy;
 public class Barley implements Coffee{
     
     private String name;
-    private PricingStrategy pricingStrategy;
+    private BasePricingStrategy basePricingStrategy;
+    private AddictionPricingStrategy addictionPricingStrategy;
 
-    public Barley(PricingStrategy pricingStrategy){
+    public Barley(BasePricingStrategy basePricingStrategy , AddictionPricingStrategy addictionPricingStrategy){
         this.name = "d'orzo";
-        this.pricingStrategy = pricingStrategy;
+        this.basePricingStrategy = basePricingStrategy;
+        this.addictionPricingStrategy = addictionPricingStrategy;
     }
 
     private String getName() {
@@ -28,7 +31,7 @@ public class Barley implements Coffee{
 
     @Override
     public double getPrice() {
-        return pricingStrategy.getBasePrice();
+        return basePricingStrategy.getBasePrice();
     }
 
     @Override
@@ -38,7 +41,7 @@ public class Barley implements Coffee{
 
     @Override
     public double getAddictionPrice() {
-        return pricingStrategy.getAddictionPrice();
+        return addictionPricingStrategy.getAddictionPrice();
     }
 
     @Override

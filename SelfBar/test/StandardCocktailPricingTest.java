@@ -10,8 +10,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import selfbar.PricingStrategy;
 import selfbar.StandardCocktailPricing;
+import selfbar.BasePricingStrategy;
 
 /**
  *
@@ -19,7 +19,7 @@ import selfbar.StandardCocktailPricing;
  */
 public class StandardCocktailPricingTest {
     
-    PricingStrategy pricingStrategy;
+    BasePricingStrategy pricingStrategy;
     
     public StandardCocktailPricingTest() {
     }
