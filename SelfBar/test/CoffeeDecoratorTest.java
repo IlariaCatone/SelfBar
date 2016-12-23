@@ -6,7 +6,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import selfbar.Coffee;
 import selfbar.CoffeeBase;
-import selfbar.CoffeeDecorator;
+import selfbar.decorations.CoffeeDecorator;
 import selfbar.PricingStrategy;
 import selfbar.Product;
 import selfbar.StandardCoffeePricing;

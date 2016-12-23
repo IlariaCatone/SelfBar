@@ -1,5 +1,6 @@
 package selfbar;
 
+import payment.PaymentStrategy;
 import java.util.ArrayList;
 
 /**
@@ -9,7 +10,8 @@ public class Table implements Observable{
 
     private ArrayList<Product> products;
     private ArrayList<Observer> observers;
-
+    private PaymentStrategy paymentStrategy;
+    
     public Table() {
         this.products = new ArrayList<>();
         this.observers = new ArrayList<>();

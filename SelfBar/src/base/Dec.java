@@ -1,15 +1,24 @@
-package selfbar;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package base;
+
+import selfbar.Coffee;
+import selfbar.PricingStrategy;
 
 /**
- * Created by lores on 11/12/2016.
+ *
+ * @author lores
  */
-public class CocktailBase implements Cocktail {
-
+public class Dec implements Coffee{
+    
     private String name;
     private PricingStrategy pricingStrategy;
 
-    public CocktailBase(String name,PricingStrategy pricingStrategy){
-        this.name = name;
+    public Dec(PricingStrategy pricingStrategy){
+        this.name = "decaffeinato";
         this.pricingStrategy = pricingStrategy;
     }
 
@@ -24,7 +33,7 @@ public class CocktailBase implements Cocktail {
 
     @Override
     public String getDescription() {
-        return "Cocktail base: "+name;
+        return "Caffe "+name;
     }
 
     @Override
@@ -35,12 +44,13 @@ public class CocktailBase implements Cocktail {
     @Override
     public boolean equals(Object object) {
         boolean res = false;
-        if (object instanceof CocktailBase) {
-            CocktailBase cocktailBase = (CocktailBase) object;
-            if ((cocktailBase.getName().equals(this.getName().toLowerCase())) && (cocktailBase.getPrice() == this.getPrice())) {
+        if (object instanceof Coffee) {
+            Coffee coffee= (Coffee) object;
+            if ((coffee.getDescription().equals(this.getName().toLowerCase())) && (coffee.getPrice() == this.getPrice())) {
                 res = true;
             }
         }
         return res;
     }
 }
+

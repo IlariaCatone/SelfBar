@@ -1,15 +1,17 @@
-package selfbar;
+package selfbar.decorations;
+
+import selfbar.Coffee;
 
 /**
  * Created by lores on 11/12/2016.
  */
 
-public class CoffeeDecorator implements Coffee{
+public abstract class CoffeeDecorator implements Coffee{
 
-    private String decoration;
-    private Coffee coffee;
+    protected Coffee coffee;
+    protected String decoration;
 
-    public CoffeeDecorator(Coffee coffee,String decoration) {
+    public CoffeeDecorator(Coffee coffee, String decoration) {
         this.coffee = coffee;
         this.decoration = decoration;
     }
@@ -20,14 +22,11 @@ public class CoffeeDecorator implements Coffee{
     }
 
     @Override
-    public String getDescription() {
-        return coffee.getDescription() + " + "+ decoration;
-    }
+    public abstract String getDescription();
 
     @Override
     public double getAddictionPrice() {
         return coffee.getAddictionPrice();
     }
-
-
+    
 }

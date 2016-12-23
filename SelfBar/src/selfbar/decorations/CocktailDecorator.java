@@ -1,12 +1,14 @@
-package selfbar;
+package selfbar.decorations;
+
+import selfbar.Cocktail;
 
 /**
  * Created by lores on 11/12/2016.
  */
-public class CocktailDecorator implements Cocktail {
+public abstract class CocktailDecorator implements Cocktail {
 
-    private String decoration;
-    private Product cocktail;
+    protected String decoration;
+    protected Cocktail cocktail;
 
     public CocktailDecorator(Cocktail cocktail,String decoration) {
         this.cocktail = cocktail;
@@ -19,10 +21,8 @@ public class CocktailDecorator implements Cocktail {
     }
 
     @Override
-    public String getDescription() {
-        return cocktail.getDescription() + " + "+ decoration;
-    }
-
+    public abstract String getDescription();
+    
     @Override
     public double getAddictionPrice() {
         return cocktail.getAddictionPrice();

@@ -13,7 +13,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
-import selfbar.CocktailBase;
 import selfbar.Observer;
 import selfbar.Product;
 
