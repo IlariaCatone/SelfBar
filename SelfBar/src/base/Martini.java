@@ -5,9 +5,7 @@
  */
 package base;
 
-import selfbar.AddictionPricingStrategy;
 import selfbar.Cocktail;
-import selfbar.BasePricingStrategy;
 
 /**
  *
@@ -15,15 +13,10 @@ import selfbar.BasePricingStrategy;
  */
 public class Martini implements Cocktail {
     private String name;
-    private BasePricingStrategy basePricingStrategy;
-    private AddictionPricingStrategy addictionPricingStrategy;
 
-    public Martini(BasePricingStrategy basePricingStrategy , AddictionPricingStrategy addictionPricingStrategy){
+    public Martini(){
         this.name = "martini";
-        this.basePricingStrategy = basePricingStrategy;
-        this.addictionPricingStrategy = addictionPricingStrategy;
     }
-
 
     private String getName() {
         return name;
@@ -31,7 +24,7 @@ public class Martini implements Cocktail {
 
     @Override
     public double getPrice() {
-        return basePricingStrategy.getBasePrice();
+        return 3;
     }
 
     @Override
@@ -41,7 +34,7 @@ public class Martini implements Cocktail {
 
     @Override
     public double getAddictionPrice() {
-        return addictionPricingStrategy.getAddictionPrice();
+        return 0.5;
     }
 
     @Override

@@ -6,7 +6,8 @@
 package GUI;
 
 import Controller.Controller;
-import base.BloodyMary;
+import java.util.ArrayList;
+import java.util.Arrays;
 import selfbar.Table;
 
 /**
@@ -22,8 +23,6 @@ public class Main {
         Table table = new Table();
         Controller controller = new Controller();
         table.addObserver(controller);
-        controller.setTable(table);
-        
+        controller.setTable(table);   
     }
-
 }
