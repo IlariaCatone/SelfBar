@@ -35,15 +35,16 @@ public class Controller implements Observer{
         showGui();
     }
     
-    
     @Override
     public void updateAdd(Product product) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //aggiornamento dell'inteerfaccia perche é stato aggiunto product
+        System.out.println("Aggiunta prodotto");
     }
 
     @Override
     public void updateRemove(Product product) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //aggiornamento dell'inteerfaccia perche é stato rimosso product
+        System.out.println("Rimozione prodotto");
     }
     
     public void showGui(){

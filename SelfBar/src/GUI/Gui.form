@@ -118,9 +118,6 @@
             <Component class="javax.swing.JLabel" name="coffeeIcon">
               <Properties>
                 <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\Remei\Desktop\Risorsa 3ddds.png"/>
-                </Property>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="priceCoffeeLabel">
@@ -180,9 +177,6 @@
             <Component class="javax.swing.JLabel" name="cocktailIcon">
               <Properties>
                 <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\Remei\Desktop\Risorsa 2ddds.png"/>
-                </Property>
                 <Property name="toolTipText" type="java.lang.String" value=""/>
               </Properties>
             </Component>

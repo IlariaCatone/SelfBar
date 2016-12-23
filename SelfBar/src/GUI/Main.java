@@ -6,20 +6,19 @@
 package GUI;
 
 import Controller.Controller;
+import selfbar.Table;
 
 /**
  *
  * @author Remei
  */
-public class JavaApplication1 {
+public class Main {
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-
-        Controller contr=new Controller();
-        
+    public static void main(String[] args) {        
+        Controller controller = new Controller();
     }
-    
+
 }

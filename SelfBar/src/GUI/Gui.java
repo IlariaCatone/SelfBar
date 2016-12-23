@@ -375,8 +375,7 @@ public class Gui extends javax.swing.JFrame {
     public JLabel getCoffeeIcon() {
         return coffeeIcon;
     }
-    
-
+   
 
 }
 
