@@ -25,7 +25,7 @@ public class Dec implements Coffee{
 
     @Override
     public double getPrice() {
-        return 1;
+        return 3;
     }
 
     @Override

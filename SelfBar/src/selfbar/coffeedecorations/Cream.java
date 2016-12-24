@@ -15,7 +15,7 @@ import selfbar.Coffee;
 public class Cream extends CoffeeDecorator{
 
     public Cream(Coffee coffee) {
-        super(coffee,"panna");
+        super(coffee,"Panna");
     }
     
     @Override
