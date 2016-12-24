@@ -6,7 +6,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import selfbar.Cocktail;
 import selfbar.CocktailBase;
-import selfbar.decorations.CocktailDecorator;
+import selfbar.CocktailDecorator;
 import selfbar.Product;
 import selfbar.StandardCocktailPricing;
 import selfbar.BasePricingStrategy;

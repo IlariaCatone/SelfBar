@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package selfbar.decorations;
+package selfbar.cocktaildecorations;
 
+import selfbar.CocktailDecorator;
 import selfbar.Cocktail;
 import selfbar.Coffee;
 
@@ -12,10 +13,10 @@ import selfbar.Coffee;
  *
  * @author lores
  */
-public class Appetizer extends CocktailDecorator{
+public class Soda extends CocktailDecorator{
 
-    public Appetizer(Cocktail cocktail) {
-        super(cocktail,"Appetizer");
+    public Soda(Cocktail cocktail) {
+        super(cocktail,"Soda");
     }
     
     @Override

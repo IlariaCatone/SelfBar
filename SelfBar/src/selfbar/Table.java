@@ -1,6 +1,6 @@
 package selfbar;
 
-import payment.PaymentStrategy;
+import selfbar.payment.PaymentStrategy;
 import java.util.ArrayList;
 
 /**

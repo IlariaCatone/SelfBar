@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Vector;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javax.smartcardio.Card;
 import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
 import javax.swing.ButtonModel;
@@ -28,6 +29,7 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.ListModel;
 import javax.swing.event.ChangeEvent;
 import javax.xml.bind.Marshaller.Listener;
 import selfbar.Observer;
@@ -60,6 +62,8 @@ public class Controller implements Observer{
         initializeListener();
         initializeGui();
         showGui();
+        
+        
     }
     
     @Override
@@ -114,12 +118,12 @@ public class Controller implements Observer{
         additionPanel.setVisible(true);
         totalPriceLabel.setVisible(false);
         //listener
-        margaritaRadio.addItemListener(radioSelection);
+       /* margaritaRadio.addItemListener(radioSelection);
         martiniRadio.addItemListener(radioSelection);
         decRadio.addItemListener(radioSelection);
         bloodymaryRadio.addItemListener(radioSelection);
         barleyRadio.addItemListener(radioSelection);
-        arabicaRadio.addItemListener(radioSelection); 
+        arabicaRadio.addItemListener(radioSelection); */
         
     }
     
@@ -130,7 +134,6 @@ public class Controller implements Observer{
                if(!(cocktailRadioGroup.getSelection()==null)){
                    changeListObject(cocktailExtra);
                }  else changeListObject(coffeeExtra);
-                
            }
        };
     }
@@ -142,7 +145,6 @@ public class Controller implements Observer{
             defaultListModel.add(i,tmpArray.get(i));
         }
         additionList.setModel(defaultListModel);
-
     }
    
     public void setTable(Table table){

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package base;
+package selfbar.cocktailbase;
 
 import selfbar.Cocktail;
 
@@ -11,11 +11,11 @@ import selfbar.Cocktail;
  *
  * @author lores
  */
-public class BloodyMary implements Cocktail {
+public class Martini implements Cocktail {
     private String name;
-   
-    public BloodyMary(){
-        this.name = "bloody mary";
+
+    public Martini(){
+        this.name = "martini";
     }
 
     private String getName() {

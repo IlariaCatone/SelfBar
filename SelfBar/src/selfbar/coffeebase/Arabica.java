@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package base;
+package selfbar.coffeebase;
 
 import selfbar.Coffee;
 
@@ -11,12 +11,12 @@ import selfbar.Coffee;
  *
  * @author lores
  */
-public class Barley implements Coffee{
+public class Arabica implements Coffee{
     
     private String name;
-
-    public Barley(){
-        this.name = "d'orzo";
+    
+    public Arabica(){
+        this.name = "arabica";
     }
 
     private String getName() {
@@ -50,4 +50,3 @@ public class Barley implements Coffee{
         return res;
     }
 }
-
