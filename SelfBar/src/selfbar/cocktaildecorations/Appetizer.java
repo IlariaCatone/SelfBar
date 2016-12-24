@@ -16,7 +16,7 @@ import selfbar.Coffee;
 public class Appetizer extends CocktailDecorator{
 
     public Appetizer(Cocktail cocktail) {
-        super(cocktail,"Appetizer");
+        super(cocktail,"appetizer");
     }
     
     @Override

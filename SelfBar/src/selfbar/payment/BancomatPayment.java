@@ -12,6 +12,6 @@ package selfbar.payment;
 public class BancomatPayment implements PaymentStrategy{
     @Override
     public String getPaymentMethod() {
-        return "Pagamento effettuato tramite contanti";
+        return "Pagamento effettuato tramite bancomat";
     }
 }
