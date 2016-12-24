@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package selfbar.cocktailbase;
+package base;
 
 import selfbar.Cocktail;
+import selfbar.PricingStrategy;
 
 /**
  *
@@ -13,9 +14,11 @@ import selfbar.Cocktail;
  */
 public class Margarita implements Cocktail {
     private String name;
+    private PricingStrategy pricingStrategy;
 
-    public Margarita(){
+    public Margarita(PricingStrategy pricingStrategy){
         this.name = "margarita";
+        this.pricingStrategy = pricingStrategy;
     }
 
     private String getName() {
@@ -24,7 +27,7 @@ public class Margarita implements Cocktail {
 
     @Override
     public double getPrice() {
-        return 3;
+        return pricingStrategy.getBasePrice();
     }
 
     @Override
@@ -34,7 +37,7 @@ public class Margarita implements Cocktail {
 
     @Override
     public double getAddictionPrice() {
-        return 0.5;
+        return pricingStrategy.getAddictionPrice();
     }
 
     @Override

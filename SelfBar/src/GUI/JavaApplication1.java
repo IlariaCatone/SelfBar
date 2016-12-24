@@ -6,23 +6,20 @@
 package GUI;
 
 import Controller.Controller;
-import java.util.ArrayList;
-import java.util.Arrays;
-import selfbar.Table;
 
 /**
  *
  * @author Remei
  */
-public class Main {
+public class JavaApplication1 {
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {       
-        Table table = new Table();
-        Controller controller = new Controller();
-        table.addObserver(controller);
-        controller.setTable(table);   
+    public static void main(String[] args) {
+
+        Controller contr=new Controller();
+        
     }
+    
 }

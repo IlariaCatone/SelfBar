@@ -3,12 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package selfbar.payment;
+package payment;
 
 /**
  *
  * @author lores
  */
-public interface PaymentStrategy {
-    public String getPaymentMethod();
+public class CreditCardPayment implements PaymentStrategy{
+    @Override
+    public String getPaymentMethod() {
+        return "Pagamento effettuato tramite carta di credito";
+    }
 }

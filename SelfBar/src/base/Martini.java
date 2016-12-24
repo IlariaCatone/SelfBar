@@ -3,20 +3,22 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package selfbar.coffeebase;
+package base;
 
-import selfbar.Coffee;
+import selfbar.Cocktail;
+import selfbar.PricingStrategy;
 
 /**
  *
  * @author lores
  */
-public class Arabica implements Coffee{
-    
+public class Martini implements Cocktail {
     private String name;
-    
-    public Arabica(){
-        this.name = "arabica";
+    private PricingStrategy pricingStrategy;
+
+    public Martini(PricingStrategy pricingStrategy){
+        this.name = "Martini";
+        this.pricingStrategy = pricingStrategy;
     }
 
     private String getName() {
@@ -25,25 +27,25 @@ public class Arabica implements Coffee{
 
     @Override
     public double getPrice() {
-        return 1;
+        return pricingStrategy.getBasePrice();
     }
 
     @Override
     public String getDescription() {
-        return "Caffe "+name;
+        return "Cocktail "+name;
     }
 
     @Override
     public double getAddictionPrice() {
-        return 0.5;
+        return pricingStrategy.getAddictionPrice();
     }
 
     @Override
     public boolean equals(Object object) {
         boolean res = false;
-        if (object instanceof Coffee) {
-            Coffee coffee= (Coffee) object;
-            if ((coffee.getDescription().equals(this.getName().toLowerCase())) && (coffee.getPrice() == this.getPrice())) {
+        if (object instanceof Cocktail) {
+            Cocktail cocktail = (Cocktail) object;
+            if ((cocktail.getDescription().equals(this.getName().toLowerCase())) && (cocktail.getPrice() == this.getPrice())) {
                 res = true;
             }
         }

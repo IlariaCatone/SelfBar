@@ -3,19 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package selfbar.coffeedecorations;
+package selfbar.decorations;
 
-import selfbar.CoffeeDecorator;
 import selfbar.Coffee;
 
 /**
  *
  * @author lores
  */
-public class Cocoa extends CoffeeDecorator{
+public class Milk extends CoffeeDecorator{
 
-    public Cocoa(Coffee coffee) {
-        super(coffee,"Cacao");
+    public Milk(Coffee coffee) {
+        super(coffee,"Latte");
     }
     
     @Override

@@ -3,25 +3,23 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package selfbar.cocktaildecorations;
+package selfbar.decorations;
 
-import selfbar.CocktailDecorator;
-import selfbar.Cocktail;
 import selfbar.Coffee;
 
 /**
  *
  * @author lores
  */
-public class Lime extends CocktailDecorator{
+public class Cream extends CoffeeDecorator{
 
-    public Lime(Cocktail cocktail) {
-        super(cocktail,"Lime");
+    public Cream(Coffee coffee) {
+        super(coffee,"Panna");
     }
     
     @Override
     public String getDescription() {
-        return cocktail.getDescription() + " + "+ decoration;
+        return coffee.getDescription() + " + "+ decoration;
     }
     
 }

@@ -6,17 +6,17 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import selfbar.Cocktail;
 import selfbar.CocktailBase;
-import selfbar.CocktailDecorator;
+import selfbar.decorations.CocktailDecorator;
+import selfbar.PricingStrategy;
 import selfbar.Product;
 import selfbar.StandardCocktailPricing;
-import selfbar.BasePricingStrategy;
 
 /**
  * Created by Remei on 13/12/2016.
  */
 public class CocktailDecoratorTest {
     Product decoratorCocktail;
-    BasePricingStrategy pricingStrategy;
+    PricingStrategy pricingStrategy;
     Cocktail baseCocktail;
 
     public CocktailDecoratorTest() {

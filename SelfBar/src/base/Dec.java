@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package selfbar.coffeebase;
+package base;
 
 import selfbar.Coffee;
+import selfbar.PricingStrategy;
 
 /**
  *
@@ -14,18 +15,20 @@ import selfbar.Coffee;
 public class Dec implements Coffee{
     
     private String name;
+    private PricingStrategy pricingStrategy;
 
-    public Dec(){
+    public Dec(PricingStrategy pricingStrategy){
         this.name = "decaffeinato";
+        this.pricingStrategy = pricingStrategy;
     }
 
-    private String getName(){
+    private String getName() {
         return name;
     }
 
     @Override
     public double getPrice() {
-        return 3;
+        return pricingStrategy.getBasePrice();
     }
 
     @Override
@@ -35,7 +38,7 @@ public class Dec implements Coffee{
 
     @Override
     public double getAddictionPrice() {
-        return 0.5;
+        return pricingStrategy.getAddictionPrice();
     }
 
     @Override

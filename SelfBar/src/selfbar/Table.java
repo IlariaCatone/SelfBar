@@ -1,15 +1,16 @@
 package selfbar;
 
-import selfbar.payment.PaymentStrategy;
+import payment.PaymentStrategy;
 import java.util.ArrayList;
 
 /**
  * Created by lores on 12/12/2016.
  */
 public class Table implements Observable{
+
     private ArrayList<Product> products;
     private ArrayList<Observer> observers;
-    private PaymentStrategy paymentStrategy;   
+    private PaymentStrategy paymentStrategy;
     
     public Table() {
         this.products = new ArrayList<>();
@@ -50,9 +51,5 @@ public class Table implements Observable{
         for (Observer o : observers) {
             o.updateRemove(product);
         }
-    }
-    
-    public void setPaymentStrategy(PaymentStrategy paymentStrategy) {
-        this.paymentStrategy = paymentStrategy;
     }
 }

@@ -1,4 +1,4 @@
-package selfbar;
+package selfbar.decorations;
 
 import selfbar.Coffee;
 

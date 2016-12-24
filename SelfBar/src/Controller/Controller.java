@@ -6,76 +6,69 @@
 package Controller;
 
 import GUI.Gui;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Vector;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javax.smartcardio.Card;
-import javax.swing.AbstractButton;
-import javax.swing.ButtonGroup;
-import javax.swing.ButtonModel;
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.ListModel;
-import javax.swing.event.ChangeEvent;
-import javax.xml.bind.Marshaller.Listener;
 import selfbar.Observer;
 import selfbar.Product;
-import selfbar.Table;
 
 /**
  *
  * @author Remei
  */
 public class Controller implements Observer{
+    int maximumExtraNumber=3;
     Gui gui=new Gui();
-    Table table;
     JFrame applicationFrame;
     JPanel cartPanel,additionPanel;
-    ButtonGroup cocktailRadioGroup,coffeeRadioGroup;
-    JList cartList,additionList;
+    JList cartList,additionList,extraList;
     JLabel totalPriceLabel,priceCoffeeLabel,priceCocktailLabel,coffeeIcon,cocktailIcon;
-    JButton addAdditionButton,payButton;
-    Product coffee,cocktail;
-    JRadioButton margaritaRadio,bloodymaryRadio,martiniRadio,arabicaRadio,barleyRadio,decRadio;
-    ItemListener radioSelection;
-    //Default list 
-    List<String> cocktailExtra = Arrays.asList("aldo", "giovanni", "giacomo");
-    List<String> coffeeExtra = Arrays.asList("ficarra","picone");
-    DefaultListModel defaultListModel=new DefaultListModel<String>();
+    JButton addAdditionButton,payButton,addToCartButton;
+    JComboBox<String> coffeeCombo,cocktailCombo;
+    ItemListener comboListener;
+    DefaultListModel extraSelectionModel;
+    DefaultListModel extraSelectedModel;
+
+    String[] cocktailListDefault = {"Margarita","Martini","BloodyMary"};
+    String[] coffeeListDefault = {"Arabica","Barley","Decaffeinato"};
+    List<String> cocktailListExtra = Arrays.asList("aldo", "giovanni", "giacomo");
+    List<String> coffeeListExtra = Arrays.asList("ficarra","picone");
+    
     
     public Controller() {
+        this.extraSelectedModel = new DefaultListModel<String>();
+        this.extraSelectionModel = new DefaultListModel<String>();
         initializeComponent();
         initializeListener();
+        initializeArticles();
         initializeGui();
         showGui();
-        
-        
     }
+    
     
     @Override
     public void updateAdd(Product product) {
-        //aggiornamento dell'inteerfaccia perche é stato aggiunto product
-        System.out.println("Aggiunta prodotto");
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public void updateRemove(Product product) {
-        //aggiornamento dell'inteerfaccia perche é stato rimosso product
-        System.out.println("Rimozione prodotto");
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     public void showGui(){
@@ -95,62 +88,76 @@ public class Controller implements Observer{
         cocktailIcon=gui.getCocktailIcon();
         addAdditionButton=gui.getAddAdditionButton();
         payButton=gui.getPayButton();
-        /*cocktailRadioGroup=gui.getCocktailRadioGroup();
-        coffeeRadioGroup=gui.getCoffeeRadioGroup();
-        margaritaRadio=gui.getMargaritaCocktailRadio();
-        martiniRadio=gui.getMartiniCocktailRadio();
-        bloodymaryRadio=gui.getBloodymaryCocktailRadio();
-        arabicaRadio=gui.getArabicaCoffeeRadio();
-        barleyRadio=gui.getBarleyCoffeeRadio();
-        decRadio=gui.getDecCoffeeRadio();*/
+        addToCartButton=gui.getAddToCartButton();
+        cocktailCombo=gui.getCocktailCombo();
+        coffeeCombo=gui.getCoffeeCombo();
+        extraList=gui.getExtraList();
+
     }
     
     public void initializeArticles(){
-       priceCocktailLabel.setText("Prezzo: "+cocktail.getPrice());
-       priceCoffeeLabel.setText("Prezzo: "+coffee.getPrice());
-    }
-    
-    public void initializeGui(){
-        additionList.setModel(defaultListModel);
- 
-        //visibility
-        cartPanel.setVisible(false);
-        additionPanel.setVisible(true);
-        totalPriceLabel.setVisible(false);
-        //listener
-       /* margaritaRadio.addItemListener(radioSelection);
-        martiniRadio.addItemListener(radioSelection);
-        decRadio.addItemListener(radioSelection);
-        bloodymaryRadio.addItemListener(radioSelection);
-        barleyRadio.addItemListener(radioSelection);
-        arabicaRadio.addItemListener(radioSelection); */
+        cocktailCombo.setModel(new DefaultComboBoxModel(cocktailListDefault));
+        coffeeCombo.setModel(new DefaultComboBoxModel(coffeeListDefault));
+        extraList.setModel(extraSelectedModel);
+        cocktailCombo.addItemListener(comboListener);
+        coffeeCombo.addItemListener(comboListener);
+        cocktailCombo.setSelectedItem(null);
+        coffeeCombo.setSelectedItem(null);
         
     }
     
+    public void initializeGui(){
+        cartPanel.setVisible(false);
+        additionPanel.setVisible(false);
+        totalPriceLabel.setVisible(false);
+    }
+    
     public void initializeListener(){
-        radioSelection=new ItemListener() {
-           @Override
-           public void itemStateChanged(ItemEvent e) {
-               if(!(cocktailRadioGroup.getSelection()==null)){
-                   changeListObject(cocktailExtra);
-               }  else changeListObject(coffeeExtra);
-           }
-       };
+       
+        comboListener=new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if(e.getStateChange() == ItemEvent.SELECTED) {
+                    if(e.getSource().equals(coffeeCombo))
+                        additionPanel.setVisible(true);
+                        extraSelectedModel.removeAllElements();
+                        changeListObject(coffeeListExtra);
+                    }
+            }
+        };
+        
+       //Aggiunge l'ordine alla lista del tavolo
+       addToCartButton.addMouseListener(new MouseAdapter() {
+                public void mouseClicked(MouseEvent e) {
+                    
+                }
+
+            });
+        addAdditionButton.addMouseListener(new MouseAdapter() {
+                public void mouseClicked(MouseEvent e) {
+                    if(!additionList.isSelectionEmpty()){
+                        String selection=(String) additionList.getSelectedValue();
+                        extraSelectedModel.addElement(selection);
+                    }
+                }
+
+            });
+        cocktailIcon.addMouseListener(new MouseAdapter() {
+                public void mouseClicked(MouseEvent e) {
+                    if(!additionPanel.isVisible()) additionPanel.setVisible(true);
+                }
+
+            });
     }
     
     public void changeListObject(List<String> tmpArray){
-        defaultListModel.removeAllElements();
+        extraSelectionModel.removeAllElements();
         additionList.removeAll();
         for(int i=0;i<tmpArray.size();i++){
-            defaultListModel.add(i,tmpArray.get(i));
+            extraSelectionModel.add(i,tmpArray.get(i));
         }
-        additionList.setModel(defaultListModel);
+        additionList.setModel(extraSelectionModel);
     }
    
-    public void setTable(Table table){
-        this.table = table;
-    }
-     
     
-            
 }

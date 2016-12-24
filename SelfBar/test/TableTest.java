@@ -7,11 +7,11 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import selfbar.CocktailBase;
 import selfbar.CoffeeBase;
+import selfbar.PricingStrategy;
 import selfbar.Product;
 import selfbar.StandardCocktailPricing;
 import selfbar.StandardCoffeePricing;
 import selfbar.Table;
-import selfbar.BasePricingStrategy;
 
 /**
  * Created by Remeic on 14/12/2016.
@@ -19,7 +19,7 @@ import selfbar.BasePricingStrategy;
 public class TableTest {
 
     Table table;
-    BasePricingStrategy pricingStrategy;
+    PricingStrategy pricingStrategy;
 
     public TableTest() {
     }
