@@ -152,6 +152,8 @@ public class Controller implements Observer{
                             addCocktailDecorations(str);
                         }
                     }
+                    if(elementSelected.equals("Coffee")) table.addProduct(coffeeToAdd);
+                    else table.addProduct(cocktailToAdd);
                 }
             });
        
