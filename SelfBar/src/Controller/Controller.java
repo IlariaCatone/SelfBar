@@ -203,7 +203,7 @@ public class Controller implements Observer{
                 }});
         addAdditionButton.addMouseListener(new MouseAdapter() {
                 public void mouseClicked(MouseEvent e) {
-                    if(!additionList.isSelectionEmpty()){
+                    if(!additionList.isSelectionEmpty()&&checkAddiction(additionList.getSelectedValue().toString())){
                         String selection=(String) additionList.getSelectedValue();
                         if (extraSelectedModel.getSize()<MAX_ADDICTION)
                         extraSelectedModel.addElement(selection);
@@ -225,6 +225,13 @@ public class Controller implements Observer{
                 }
             });
         
+    }
+    
+    
+    public boolean checkAddiction(String str){
+        if (extraSelectedModel.contains(str))
+            return false;
+        return true;
     }
     
     public void changeListObject(List<String> tmpArray){
