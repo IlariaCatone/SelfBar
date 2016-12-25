@@ -66,7 +66,7 @@ public class Gui extends javax.swing.JFrame {
         jLabel3.setText("Caffè");
 
         coffeeIcon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        coffeeIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/coffee.png"))); // NOI18N
+        coffeeIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/coffee.png"))); // NOI18N
 
         priceCoffeeLabel.setText("Prezzo:");
 
@@ -108,7 +108,7 @@ public class Gui extends javax.swing.JFrame {
         jLabel6.setText("Cocktail");
 
         cocktailIcon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        cocktailIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/cocktail.png"))); // NOI18N
+        cocktailIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/cocktail.png"))); // NOI18N
         cocktailIcon.setToolTipText("");
 
         priceCocktailLabel.setText("Prezzo:");

@@ -24,16 +24,26 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import selfbar.Cocktail;
+import selfbar.Coffee;
 import selfbar.Observer;
 import selfbar.Product;
+import selfbar.Table;
+import selfbar.cocktail.*;
+import selfbar.cocktaildecorators.*;
+import selfbar.coffeebase.*;
+import selfbar.coffeedecorators.*;
 
 /**
  *
  * @author Remei
  */
 public class Controller implements Observer{
-    int maximumExtraNumber=3;
+    
+    final int MAX_ADDICTION=3;
+    
     Gui gui=new Gui();
+    Table table;
     JFrame applicationFrame;
     JPanel cartPanel,additionPanel;
     JList cartList,additionList,extraList;
@@ -43,11 +53,15 @@ public class Controller implements Observer{
     ItemListener comboListener;
     DefaultListModel extraSelectionModel;
     DefaultListModel extraSelectedModel;
+    
+    String elementSelected;
+    Coffee coffeeToAdd;
+    Cocktail cocktailToAdd;
 
     String[] cocktailListDefault = {"Margarita","Martini","BloodyMary"};
-    String[] coffeeListDefault = {"Arabica","Barley","Decaffeinato"};
-    List<String> cocktailListExtra = Arrays.asList("aldo", "giovanni", "giacomo");
-    List<String> coffeeListExtra = Arrays.asList("ficarra","picone");
+    String[] coffeeListDefault = {"Arabica","D'orzo","Decaffeinato"};
+    List<String> cocktailListExtra = Arrays.asList("Appetizer", "Lime", "Soda");
+    List<String> coffeeListExtra = Arrays.asList("Cacao","Panna","Latte");
     
     
     public Controller() {
@@ -60,15 +74,14 @@ public class Controller implements Observer{
         showGui();
     }
     
-    
     @Override
     public void updateAdd(Product product) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        System.out.println("adding...");
     }
 
     @Override
     public void updateRemove(Product product) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        System.out.println("removing...");
     }
     
     public void showGui(){
@@ -92,7 +105,6 @@ public class Controller implements Observer{
         cocktailCombo=gui.getCocktailCombo();
         coffeeCombo=gui.getCoffeeCombo();
         extraList=gui.getExtraList();
-
     }
     
     public void initializeArticles(){
@@ -113,41 +125,58 @@ public class Controller implements Observer{
     }
     
     public void initializeListener(){
-       
+        
         comboListener=new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
                 if(e.getStateChange() == ItemEvent.SELECTED) {
-                    if(e.getSource().equals(coffeeCombo))
-                        additionPanel.setVisible(true);
-                        extraSelectedModel.removeAllElements();
-                        changeListObject(coffeeListExtra);
+                    if(e.getSource().equals(coffeeCombo)){
+                        selectCoffee();
+                        initCoffee(e.getItem()+"");
+                    }else{
+                        selectCocktail();
+                        initCocktail(e.getItem()+"");
                     }
+                }
             }
         };
         
        //Aggiunge l'ordine alla lista del tavolo
        addToCartButton.addMouseListener(new MouseAdapter() {
                 public void mouseClicked(MouseEvent e) {
-                    
+                    for(int i = 0; i<extraSelectedModel.getSize();i++){
+                        String str = (String) extraSelectedModel.getElementAt(i);
+                        if(elementSelected.equals("Coffee")){
+                            addCoffeeDecorations(str);
+                        }else{
+                            addCocktailDecorations(str);
+                        }
+                    }
                 }
-
             });
+       
         addAdditionButton.addMouseListener(new MouseAdapter() {
                 public void mouseClicked(MouseEvent e) {
                     if(!additionList.isSelectionEmpty()){
                         String selection=(String) additionList.getSelectedValue();
+                        if (extraSelectedModel.getSize()<MAX_ADDICTION)
                         extraSelectedModel.addElement(selection);
                     }
                 }
-
             });
+        
         cocktailIcon.addMouseListener(new MouseAdapter() {
                 public void mouseClicked(MouseEvent e) {
                     if(!additionPanel.isVisible()) additionPanel.setVisible(true);
                 }
-
             });
+        
+        coffeeIcon.addMouseListener(new MouseAdapter() {
+                public void mouseClicked(MouseEvent e) {
+                    if(!additionPanel.isVisible()) additionPanel.setVisible(true);
+                }
+            });
+        
     }
     
     public void changeListObject(List<String> tmpArray){
@@ -158,6 +187,84 @@ public class Controller implements Observer{
         }
         additionList.setModel(extraSelectionModel);
     }
-   
+    
+    public void setTable(Table table){
+        this.table = table;
+    }
+    
+    public void selectCoffee(){
+        additionPanel.setVisible(true);
+        extraSelectedModel.removeAllElements();
+        changeListObject(coffeeListExtra);
+        elementSelected = "Coffee";
+        cocktailCombo.setSelectedIndex(-1);
+    }
+    
+    public void selectCocktail(){
+        additionPanel.setVisible(true);
+        extraSelectedModel.removeAllElements();
+        changeListObject(cocktailListExtra);
+        elementSelected = "Cocktail";
+        coffeeCombo.setSelectedIndex(-1);
+    }
+    
+    public void initCoffee(String type){
+        switch(type){
+            case "Arabica":
+                coffeeToAdd = new Arabica();
+                break;
+            case "D'orzo":
+                coffeeToAdd = new Barley();
+                break;
+            case "Decaffeinato":
+                coffeeToAdd = new Dec();
+                break;    
+        }
+    }
+    
+    public void addCoffeeDecorations(String dec){
+        switch(dec){
+            case "Cacao":
+                coffeeToAdd = new Cocoa(coffeeToAdd);
+                break;
+            case "Panna":
+                coffeeToAdd = new Cream(coffeeToAdd);
+                break;
+            case "Latte":
+                coffeeToAdd = new Milk(coffeeToAdd);
+                break;    
+        }
+    }
+    
+    public void initCocktail(String type){
+        switch(type){
+            case "Margarita":
+                cocktailToAdd = new Margarita();
+                break;
+            case "Martini":
+                cocktailToAdd = new Martini();
+                break;
+            case "BloodyMary":
+                cocktailToAdd = new BloodyMary();
+                break;    
+        }
+    }
+    
+    public void addCocktailDecorations(String dec){
+        switch(dec){
+            case "Appetizer":
+                cocktailToAdd = new Appetizer(cocktailToAdd);
+                break;
+            case "Lime":
+                cocktailToAdd = new Lime(cocktailToAdd);
+                break;
+            case "Soda":
+                cocktailToAdd = new Soda(cocktailToAdd);
+                break;    
+        }
+    }
+    
+    /*  List<String> cocktailListExtra = Arrays.asList("Appetizer", "Lime", "Soda");*/
+
     
 }
