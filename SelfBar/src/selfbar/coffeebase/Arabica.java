@@ -51,4 +51,9 @@ public class Arabica implements Coffee{
         }
         return res;
     }
+    
+    @Override
+    public String toString(){
+        return getDescription();
+    }
 }

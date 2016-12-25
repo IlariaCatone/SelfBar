@@ -61,24 +61,25 @@ public class Controller implements Observer{
     JPanel cartPanel,additionPanel;
     JList cartList,additionList,extraList;
     JLabel totalPriceLabel,priceCoffeeLabel,priceCocktailLabel,coffeeIcon,cocktailIcon;
-    JButton addAdditionButton,payButton,addToCartButton;
+    JButton addAdditionButton,payButton,addToCartButton,removeFromCartButton;
     JComboBox<String> coffeeCombo,cocktailCombo;
     ItemListener comboListener;
-    DefaultListModel extraSelectionModel,extraSelectedModel,cartModel;
+    DefaultListModel extraSelectionModel,extraSelectedModel;
+    DefaultListModel<Product> cartModel;
 
     String[] cocktailListDefault = {"Margarita","Martini","BloodyMary"};
     String[] coffeeListDefault = {"Arabica","Barley","Decaffeinato"};
     List<String> cocktailListExtra = Arrays.asList("Stuzzichini","Lime","Soda");
     List<String> coffeeListExtra = Arrays.asList("Cacao", "Latte", "Crema");
     Boolean isCoffee;
-    
+    int totalPrice=0;
     Coffee productCoffee;
     Cocktail productCocktail;
     
     public Controller() {
         this.extraSelectedModel = new DefaultListModel<String>();
         this.extraSelectionModel = new DefaultListModel<String>();
-        this.cartModel = new DefaultListModel<String>();
+        this.cartModel = new DefaultListModel<Product>();
         initializeComponent();
         initializeListener();
         initializeArticles();
@@ -89,12 +90,16 @@ public class Controller implements Observer{
     @Override
     public void updateAdd(Product product) {
         cartPanel.setVisible(true);
-        cartModel.addElement(product);
+        updateAddCartModel(product);
+        updateTotalPrice(product.getPrice());
     }
 
     @Override
     public void updateRemove(Product product) {
         System.out.println("removing...");
+        updateTotalPrice(product.getPrice()*-1);
+        updateRemoveCartModel(product);
+
     }
     
     public void showGui(){
@@ -114,6 +119,7 @@ public class Controller implements Observer{
         cocktailIcon=gui.getCocktailIcon();
         addAdditionButton=gui.getAddAdditionButton();
         payButton=gui.getPayButton();
+        removeFromCartButton=gui.getRemoveFromCartButton();
         addToCartButton=gui.getAddToCartButton();
         cocktailCombo=gui.getCocktailCombo();
         coffeeCombo=gui.getCoffeeCombo();
@@ -135,7 +141,7 @@ public class Controller implements Observer{
     public void initializeGui(){
         cartPanel.setVisible(false);
         additionPanel.setVisible(false);
-        totalPriceLabel.setVisible(false);
+        
     }
     
     public void initializeListener(){
@@ -198,9 +204,19 @@ public class Controller implements Observer{
                      System.out.println("Cocktail prova "+product.getDescription());
 
             }
-                 
+       
                 table.addProduct(product);
                 }});
+       
+       removeFromCartButton.addMouseListener(new MouseAdapter() {
+           public void mouseClicked(MouseEvent e) {
+               if(!cartModel.isEmpty()&&cartList.getSelectedIndex()!=-1){
+               Product tmp=(Product) cartList.getSelectedValue();
+               table.removeProduct(tmp);}
+               
+               
+       
+}});
         addAdditionButton.addMouseListener(new MouseAdapter() {
                 public void mouseClicked(MouseEvent e) {
                     if(!additionList.isSelectionEmpty()&&checkAddiction(additionList.getSelectedValue().toString())){
@@ -293,5 +309,26 @@ public class Controller implements Observer{
         this.table = table;
     }
     
+    
+    public void updateAddCartModel(Product tmp){
+        cartModel.addElement(tmp);
+    }
+    
+     public void updateRemoveCartModel(Product pr){
+        cartModel.removeElement(pr);
+        int i=cartModel.indexOf(pr);
+        System.out.println("s"+i);
+        cartModel.removeAllElements();
+                System.out.println("s"+cartModel.size());
+
+        cartList.removeAll();
+        cartList.updateUI();
+        //cartList.setModel(cartModel);
+    }
+    
+    public void updateTotalPrice(double tmp){
+        totalPrice+=tmp;
+        totalPriceLabel.setText("Prezzo: "+totalPrice);
+    }
     
 }

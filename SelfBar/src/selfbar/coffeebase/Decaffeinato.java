@@ -51,5 +51,10 @@ public class Decaffeinato implements Coffee{
         }
         return res;
     }
+    
+    @Override
+    public String toString(){
+        return getDescription();
+    }
 }
 

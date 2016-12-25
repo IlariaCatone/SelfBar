@@ -27,6 +27,11 @@ public abstract class CocktailDecorator implements Cocktail {
     public double getAddictionPrice() {
         return cocktail.getAddictionPrice();
     }
+    
+    @Override
+    public String toString(){
+        return getDescription();
+    }
 
 
 }

@@ -50,4 +50,9 @@ public class Margarita implements Cocktail {
         }
         return res;
     }
+    
+    @Override
+    public String toString(){
+        return getDescription();
+    }
 }

@@ -29,4 +29,9 @@ public abstract class CoffeeDecorator implements Coffee{
         return coffee.getAddictionPrice();
     }
     
+    @Override
+    public String toString(){
+        return getDescription();
+    }
+    
 }

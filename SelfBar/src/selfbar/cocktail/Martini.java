@@ -51,4 +51,9 @@ public class Martini implements Cocktail {
         }
         return res;
     }
+    
+    @Override
+    public String toString(){
+        return getDescription();
+    }
 }
