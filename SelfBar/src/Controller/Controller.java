@@ -46,6 +46,10 @@ import selfbar.coffeebase.Decaffeinato;
 import selfbar.coffeedecorators.Cocoa;
 import selfbar.coffeedecorators.Cream;
 import selfbar.coffeedecorators.Milk;
+import selfbar.payment.BancomatPayment;
+import selfbar.payment.CashPayment;
+import selfbar.payment.CreditCardPayment;
+import selfbar.payment.PaymentStrategy;
 
 /**
  *
@@ -60,25 +64,28 @@ public class Controller implements Observer{
     JFrame applicationFrame;
     JPanel cartPanel,additionPanel;
     JList cartList,additionList,extraList;
-    JLabel totalPriceLabel,priceCoffeeLabel,priceCocktailLabel,coffeeIcon,cocktailIcon;
+    JLabel totalPriceLabel,priceCoffeeLabel,priceCocktailLabel,coffeeIcon,cocktailIcon,successPaymentLabel;
     JButton addAdditionButton,payButton,addToCartButton,removeFromCartButton;
-    JComboBox<String> coffeeCombo,cocktailCombo;
+    JComboBox<String> coffeeCombo,cocktailCombo,paymentMethodCombo;
     ItemListener comboListener;
-    DefaultListModel extraSelectionModel,extraSelectedModel;
+    DefaultListModel extraSelectionModel,extraSelectedModel,paymentMethodModel;
     DefaultListModel<Product> cartModel;
 
     String[] cocktailListDefault = {"Margarita","Martini","BloodyMary"};
     String[] coffeeListDefault = {"Arabica","D'orzo","Decaffeinato"};
+    String[] paymentListDefault = {"Contanti","Carta di credito","Bancomat"};
     List<String> cocktailListExtra = Arrays.asList("Stuzzichini","Lime","Soda");
     List<String> coffeeListExtra = Arrays.asList("Cacao", "Latte", "Panna");
     Boolean isCoffee;
     int totalPrice=0;
     Coffee productCoffee;
     Cocktail productCocktail;
+    PaymentStrategy paymentStrategy;
     
     public Controller() {
         this.extraSelectedModel = new DefaultListModel<String>();
         this.extraSelectionModel = new DefaultListModel<String>();
+        this.paymentMethodModel=new DefaultListModel<String>();
         this.cartModel = new DefaultListModel<Product>();
         initializeComponent();
         initializeListener();
@@ -117,6 +124,7 @@ public class Controller implements Observer{
         totalPriceLabel=gui.getTotalPrice();
         priceCocktailLabel=gui.getPriceCocktailLabel();
         priceCoffeeLabel=gui.getPriceCoffeeLabel();
+        successPaymentLabel=gui.getSuccessPaymentLabel();
         coffeeIcon=gui.getCoffeeIcon();
         cocktailIcon=gui.getCocktailIcon();
         addAdditionButton=gui.getAddAdditionButton();
@@ -126,11 +134,13 @@ public class Controller implements Observer{
         cocktailCombo=gui.getCocktailCombo();
         coffeeCombo=gui.getCoffeeCombo();
         extraList=gui.getExtraList();
+        paymentMethodCombo=gui.getBuyMethodCombo();
     }
     
     public void initializeArticles(){
         cocktailCombo.setModel(new DefaultComboBoxModel(cocktailListDefault));
         coffeeCombo.setModel(new DefaultComboBoxModel(coffeeListDefault));
+        paymentMethodCombo.setModel(new DefaultComboBoxModel(paymentListDefault));
         cartList.setModel(cartModel);
         extraList.setModel(extraSelectedModel);
         cocktailCombo.addItemListener(comboListener);
@@ -143,11 +153,12 @@ public class Controller implements Observer{
     public void initializeGui(){
         cartPanel.setVisible(false);
         additionPanel.setVisible(false);
-        
+        successPaymentLabel.setVisible(false);
     }
     
     public void initializeListener(){
-        
+       
+                
         comboListener=new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
@@ -225,9 +236,17 @@ public class Controller implements Observer{
         
         payButton.addMouseListener(new MouseAdapter() {
                 public void mouseClicked(MouseEvent e) {
-                    if(!additionPanel.isVisible()) additionPanel.setVisible(true);
+                   if(paymentMethodCombo.getSelectedIndex()!=-1){
+                       initPaymentMethod((String) paymentMethodCombo.getSelectedItem());
+                       table.setPaymentStrategy(paymentStrategy);
+                       successPaymentLabel.setText(table.pay());
+                       successPaymentLabel.setVisible(true);
+                       
+                   }
                 }
             });
+        
+        
         
     }
    
@@ -259,7 +278,7 @@ public class Controller implements Observer{
         this.table = table;
     }
     
-    public void initCoffee(String tmp){
+    private void initCoffee(String tmp){
         switch(tmp){
             case "Arabica":
                 productCoffee= new Arabica();
@@ -277,7 +296,7 @@ public class Controller implements Observer{
         
     }
     
-    public void initCocktail(String tmp){
+    private void initCocktail(String tmp){
         switch(tmp){
             case "BloodyMary":
                 productCocktail= new BloodyMary();
@@ -291,7 +310,21 @@ public class Controller implements Observer{
         }   
     }
     
-    public void addCoffeeDecoration(String tmp){
+    private void initPaymentMethod(String tmp){
+        switch(tmp){
+            case "Contanti":
+                paymentStrategy = new CashPayment();
+                break;
+            case "Carta di credito":
+                paymentStrategy= new CreditCardPayment();
+                break;
+            case "Bancomat":
+                paymentStrategy= new BancomatPayment();
+                break;                                
+        }   
+    }
+    
+    private void addCoffeeDecoration(String tmp){
          switch(tmp){
                case "Cacao":
                    productCoffee=new Cocoa(productCoffee);
@@ -305,7 +338,7 @@ public class Controller implements Observer{
            }
     }
     
-     public void addCocktailDecoration(String tmp){
+     private void addCocktailDecoration(String tmp){
          switch(tmp){
                case "Stuzzichini":
                    productCocktail=new Appetizer(productCocktail);
@@ -319,11 +352,11 @@ public class Controller implements Observer{
            }
     }
     
-    public void updateAddCartModel(Product tmp){
+    private void updateAddCartModel(Product tmp){
         cartModel.addElement(tmp);
     }
     
-     public void updateRemoveCartModel(Product pr){
+     private void updateRemoveCartModel(Product pr){
         cartModel.removeElement(pr);
         /*int i=cartModel.indexOf(pr);
         System.out.println("s"+i);
@@ -335,9 +368,14 @@ public class Controller implements Observer{
         //cartList.setModel(cartModel);
     }
     
-    public void updateTotalPrice(double tmp){
+    private void updateTotalPrice(double tmp){
         totalPrice+=tmp;
         totalPriceLabel.setText("Prezzo: "+totalPrice);
     }
+    
+    private void resetAll(){
+        //resetta dopo il pagamento
+    }
+    
     
 }
