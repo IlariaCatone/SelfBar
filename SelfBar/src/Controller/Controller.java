@@ -68,9 +68,9 @@ public class Controller implements Observer{
     DefaultListModel<Product> cartModel;
 
     String[] cocktailListDefault = {"Margarita","Martini","BloodyMary"};
-    String[] coffeeListDefault = {"Arabica","Barley","Decaffeinato"};
+    String[] coffeeListDefault = {"Arabica","D'orzo","Decaffeinato"};
     List<String> cocktailListExtra = Arrays.asList("Stuzzichini","Lime","Soda");
-    List<String> coffeeListExtra = Arrays.asList("Cacao", "Latte", "Crema");
+    List<String> coffeeListExtra = Arrays.asList("Cacao", "Latte", "Panna");
     Boolean isCoffee;
     int totalPrice=0;
     Coffee productCoffee;
@@ -97,6 +97,8 @@ public class Controller implements Observer{
     @Override
     public void updateRemove(Product product) {
         System.out.println("removing...");
+        
+         System.out.println("update : "+product.getDescription());
         updateTotalPrice(product.getPrice()*-1);
         updateRemoveCartModel(product);
 
@@ -150,60 +152,38 @@ public class Controller implements Observer{
             @Override
             public void itemStateChanged(ItemEvent e) {
                 if(e.getStateChange() == ItemEvent.SELECTED) {
-                    String tmp=null;
                     additionPanel.setVisible(true);
                     extraSelectedModel.removeAllElements();
                     if(e.getSource().equals(coffeeCombo)){
                         isCoffee=true;
                         changeListObject(coffeeListExtra);
-                        tmp=coffeeCombo.getSelectedItem().toString();
-                        switch(tmp){
-                            case "Arabica":
-                                productCoffee= new Arabica();
-                                break;
-                            case "Barley":
-                                productCoffee= new Barley();
-                                break;
-                            case "Decaffeinato":
-                                productCoffee= new Decaffeinato();
-                                break;                                
-                        }
+                        initCoffee(coffeeCombo.getSelectedItem().toString());
+                        //addCoffeeDecoration("Latte");
+                        
                         cocktailCombo.setSelectedIndex(-1);
                     }
                 else{
                         isCoffee=false;
                         changeListObject(cocktailListExtra);
-                        tmp=cocktailCombo.getSelectedItem().toString();
-                        switch(tmp){
-                            case "BloodyMary":
-                                productCocktail= new BloodyMary();
-                                break;
-                            case "Margarita":
-                                productCocktail= new Margarita();
-                                break;
-                            case "Martini":
-                                productCocktail= new Martini();
-                                break;                                
-                        }
+                        initCocktail(cocktailCombo.getSelectedItem().toString());
                         coffeeCombo.setSelectedIndex(-1);
                 }
             }
-            }};
+        }};
         
        //Aggiunge l'ordine alla lista del tavolo
        addToCartButton.addMouseListener(new MouseAdapter() {
                 Product product;
                 public void mouseClicked(MouseEvent e) {
-                 ArrayList<String> tmp=modelToList(extraSelectedModel);
                  if(isCoffee){
-                     product=getDecoratedCoffee(productCoffee, tmp);
+                     product= productCoffee;
                      System.out.println("Caffe prova "+product.getDescription());
                      
                     }else{
-                     product=getDecoratedCocktail(productCocktail, tmp);
-                     System.out.println("Cocktail prova "+product.getDescription());
+                     product=productCocktail;
+                     //System.out.println("Cocktail prova "+product.getDescription());
 
-            }
+                    }
        
                 table.addProduct(product);
                 }});
@@ -212,10 +192,8 @@ public class Controller implements Observer{
            public void mouseClicked(MouseEvent e) {
                if(!cartModel.isEmpty()&&cartList.getSelectedIndex()!=-1){
                Product tmp=(Product) cartList.getSelectedValue();
-               table.removeProduct(tmp);}
-               
-               
-       
+               table.removeProduct(tmp);    
+            }  
 }});
         addAdditionButton.addMouseListener(new MouseAdapter() {
                 public void mouseClicked(MouseEvent e) {
@@ -223,7 +201,11 @@ public class Controller implements Observer{
                         String selection=(String) additionList.getSelectedValue();
                         if (extraSelectedModel.getSize()<MAX_ADDICTION)
                         extraSelectedModel.addElement(selection);
-                        
+                        if (isCoffee){
+                            addCoffeeDecoration(selection);
+                        }else{
+                            addCocktailDecoration(selection);
+                        }
                     }
                 }
             });
@@ -241,9 +223,14 @@ public class Controller implements Observer{
                 }
             });
         
+        payButton.addMouseListener(new MouseAdapter() {
+                public void mouseClicked(MouseEvent e) {
+                    if(!additionPanel.isVisible()) additionPanel.setVisible(true);
+                }
+            });
+        
     }
-    
-    
+   
     public boolean checkAddiction(String str){
         if (extraSelectedModel.contains(str))
             return false;
@@ -267,48 +254,70 @@ public class Controller implements Observer{
         }
         return res;
     }
-    
-    private Coffee getDecoratedCoffee(Coffee base,ArrayList<String> decorations){
-        Coffee tmpCoffee=base;
-        System.out.println("Dec"+ decorations.toString());
-        for(String tmp: decorations){
-           switch(tmp){
-               case "Cacao":
-                   tmpCoffee=new Cocoa(tmpCoffee);
-                   break;
-               case "Crema":
-                   tmpCoffee=new Cream(tmpCoffee);
-                   break;
-               case "Latte":
-                   tmpCoffee=new Milk(tmpCoffee);
-                   break;
-           }
-        }
-        return tmpCoffee;
-    }
-    
-    private Cocktail getDecoratedCocktail(Cocktail base,ArrayList<String> decorations){
-        Cocktail tmpCocktail=base;
-        for(String tmp: decorations){
-           switch(tmp){
-               case "Stuzzichini":
-                   tmpCocktail=new Appetizer(tmpCocktail);
-                   break;
-               case "Lime":
-                   tmpCocktail=new Lime(tmpCocktail);
-                   break;
-               case "Soda":
-                   tmpCocktail=new Soda(tmpCocktail);
-                   break;
-           }
-        }
-        return tmpCocktail;
-    }
 
     public void setTable(Table table) {
         this.table = table;
     }
     
+    public void initCoffee(String tmp){
+        switch(tmp){
+            case "Arabica":
+                productCoffee= new Arabica();
+                System.out.println("init " + tmp);
+                break;
+            case "D'orzo":
+                productCoffee= new Barley();
+                System.out.println("init " + tmp);
+                break;
+            case "Decaffeinato":
+                productCoffee= new Decaffeinato();
+                System.out.println("init " + tmp);
+                break;                                
+        }
+        
+    }
+    
+    public void initCocktail(String tmp){
+        switch(tmp){
+            case "BloodyMary":
+                productCocktail= new BloodyMary();
+                break;
+            case "Margarita":
+                productCocktail= new Margarita();
+                break;
+            case "Martini":
+                productCocktail= new Martini();
+                break;                                
+        }   
+    }
+    
+    public void addCoffeeDecoration(String tmp){
+         switch(tmp){
+               case "Cacao":
+                   productCoffee=new Cocoa(productCoffee);
+                   break;
+               case "Panna":
+                   productCoffee=new Cream(productCoffee);
+                   break;
+               case "Latte":
+                   productCoffee=new Milk(productCoffee);
+                   break;
+           }
+    }
+    
+     public void addCocktailDecoration(String tmp){
+         switch(tmp){
+               case "Stuzzichini":
+                   productCocktail=new Appetizer(productCocktail);
+                   break;
+               case "Soda":
+                   productCocktail=new Soda(productCocktail);
+                   break;
+               case "Lime":
+                   productCocktail=new Lime(productCocktail);
+                   break;
+           }
+    }
     
     public void updateAddCartModel(Product tmp){
         cartModel.addElement(tmp);
@@ -316,13 +325,13 @@ public class Controller implements Observer{
     
      public void updateRemoveCartModel(Product pr){
         cartModel.removeElement(pr);
-        int i=cartModel.indexOf(pr);
+        /*int i=cartModel.indexOf(pr);
         System.out.println("s"+i);
         cartModel.removeAllElements();
                 System.out.println("s"+cartModel.size());
 
         cartList.removeAll();
-        cartList.updateUI();
+        cartList.updateUI();*/
         //cartList.setModel(cartModel);
     }
     

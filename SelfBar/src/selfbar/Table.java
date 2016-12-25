@@ -37,7 +37,10 @@ public class Table implements Observable {
     }
 
     public void removeProduct(Product product) {
-        products.add(product);
+        System.out.println("size prima:   "+this.products.size());
+        products.remove(product);
+        System.out.println("prodotto "+product.getDescription()
+                + "size dopo:   "+this.products.size());
         notifyRemove(product);
     }
 
