@@ -45,7 +45,7 @@ public class Barley implements Coffee{
         boolean res = false;
         if (object instanceof Coffee) {
             Coffee coffee= (Coffee) object;
-            if ((coffee.getDescription().equals(this.getName().toLowerCase())) && (coffee.getPrice() == this.getPrice())) {
+            if ((coffee.getDescription().equals(this.getDescription())) && (coffee.getPrice() == this.getPrice())) {
                 res = true;
             }
         }

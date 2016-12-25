@@ -45,7 +45,7 @@ public class BloodyMary implements Cocktail {
         boolean res = false;
         if (object instanceof Cocktail) {
             Cocktail cocktail = (Cocktail) object;
-            if ((cocktail.getDescription().equals(this.getName().toLowerCase())) && (cocktail.getPrice() == this.getPrice())) {
+            if ((cocktail.getDescription().equals(this.getDescription())) && (cocktail.getPrice() == this.getPrice())) {
                 res = true;
             }
         }
