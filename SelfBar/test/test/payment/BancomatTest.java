@@ -34,7 +34,7 @@ public class BancomatTest {
     @Test
     public void getPaymentMethod() {
         String expected = "Pagamento effettuato tramite bancomat";
-        assertEquals(expected, paymentStrategy.getPaymentMethod());
+        assertEquals(expected, paymentStrategy.pay());
     }
 
     // TODO add test methods here.

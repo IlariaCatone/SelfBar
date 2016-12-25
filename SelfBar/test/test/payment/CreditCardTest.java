@@ -35,7 +35,7 @@ public class CreditCardTest {
     @Test
     public void getPaymentMethod() {
         String expected = "Pagamento effettuato tramite carta di credito";
-        assertEquals(expected, paymentStrategy.getPaymentMethod());
+        assertEquals(expected, paymentStrategy.pay());
     }
 
     // TODO add test methods here.

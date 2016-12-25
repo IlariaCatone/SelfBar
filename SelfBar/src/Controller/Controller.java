@@ -53,28 +53,28 @@ import selfbar.coffeedecorators.Milk;
  */
 public class Controller implements Observer{
     
-    final int MAX_ADDICTION=3;
+    private final int MAX_ADDICTION=3;
     
-    Gui gui=new Gui();
-    Table table;
-    JFrame applicationFrame;
-    JPanel cartPanel,additionPanel;
-    JList cartList,additionList,extraList;
-    JLabel totalPriceLabel,priceCoffeeLabel,priceCocktailLabel,coffeeIcon,cocktailIcon;
-    JButton addAdditionButton,payButton,addToCartButton,removeFromCartButton;
-    JComboBox<String> coffeeCombo,cocktailCombo;
-    ItemListener comboListener;
-    DefaultListModel extraSelectionModel,extraSelectedModel;
-    DefaultListModel<Product> cartModel;
+    private Gui gui=new Gui();
+    private Table table;
+    private JFrame applicationFrame;
+    private JPanel cartPanel,additionPanel;
+    private JList cartList,additionList,extraList;
+    private JLabel totalPriceLabel,priceCoffeeLabel,priceCocktailLabel,coffeeIcon,cocktailIcon;
+    private JButton addAdditionButton,payButton,addToCartButton,removeFromCartButton;
+    private JComboBox<String> coffeeCombo,cocktailCombo;
+    private ItemListener comboListener;
+    private DefaultListModel extraSelectionModel,extraSelectedModel;
+    private DefaultListModel<Product> cartModel;
 
-    String[] cocktailListDefault = {"Margarita","Martini","BloodyMary"};
-    String[] coffeeListDefault = {"Arabica","D'orzo","Decaffeinato"};
-    List<String> cocktailListExtra = Arrays.asList("Stuzzichini","Lime","Soda");
-    List<String> coffeeListExtra = Arrays.asList("Cacao", "Latte", "Panna");
-    Boolean isCoffee;
-    int totalPrice=0;
-    Coffee productCoffee;
-    Cocktail productCocktail;
+    private String[] cocktailListDefault = {"Margarita","Martini","BloodyMary"};
+    private String[] coffeeListDefault = {"Arabica","D'orzo","Decaffeinato"};
+    private List<String> cocktailListExtra = Arrays.asList("Stuzzichini","Lime","Soda");
+    private List<String> coffeeListExtra = Arrays.asList("Cacao", "Latte", "Panna");
+    private Boolean isCoffee;
+    private double totalPrice=0;
+    private Coffee productCoffee;
+    private Cocktail productCocktail;
     
     public Controller() {
         this.extraSelectedModel = new DefaultListModel<String>();

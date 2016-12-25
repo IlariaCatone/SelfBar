@@ -11,5 +11,5 @@ package selfbar.payment;
  * @author lores
  */
 public interface PaymentStrategy {
-    public String getPaymentMethod();
+    public String pay();
 }

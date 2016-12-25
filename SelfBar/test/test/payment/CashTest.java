@@ -35,7 +35,7 @@ public class CashTest {
     @Test
     public void getPaymentMethod() {
         String expected = "Pagamento effettuato tramite contanti";
-        assertEquals(expected, paymentStrategy.getPaymentMethod());
+        assertEquals(expected, paymentStrategy.pay());
     }
 
     // TODO add test methods here.
