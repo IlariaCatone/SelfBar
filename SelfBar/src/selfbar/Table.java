@@ -62,7 +62,7 @@ public class Table implements Observable {
 
     public String pay() {
         if (paymentStrategy != null){
-            return paymentStrategy.getPaymentMethod();
+            return paymentStrategy.pay();
         }
         return "";
     }

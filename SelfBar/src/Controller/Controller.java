@@ -57,30 +57,31 @@ import selfbar.payment.PaymentStrategy;
  */
 public class Controller implements Observer{
     
-    final int MAX_ADDICTION=3;
+    private final int MAX_ADDICTION=3;
     
-    Gui gui=new Gui();
-    Table table;
-    JFrame applicationFrame;
-    JPanel cartPanel,additionPanel;
-    JList cartList,additionList,extraList;
-    JLabel totalPriceLabel,priceCoffeeLabel,priceCocktailLabel,coffeeIcon,cocktailIcon,successPaymentLabel;
-    JButton addAdditionButton,payButton,addToCartButton,removeFromCartButton;
-    JComboBox<String> coffeeCombo,cocktailCombo,paymentMethodCombo;
-    ItemListener comboListener;
-    DefaultListModel extraSelectionModel,extraSelectedModel,paymentMethodModel;
-    DefaultListModel<Product> cartModel;
+    private Gui gui=new Gui();
+    private Table table;
+    private JFrame applicationFrame;
+    private JPanel cartPanel,additionPanel;
+    private JList cartList,additionList,extraList;
+    private JLabel totalPriceLabel,priceCoffeeLabel,priceCocktailLabel,coffeeIcon,cocktailIcon,successPaymentLabel;
+    private JButton addAdditionButton,payButton,addToCartButton,removeFromCartButton;
+    private JComboBox<String> coffeeCombo,cocktailCombo,paymentMethodCombo;
+    private ItemListener comboListener;
+    private DefaultListModel extraSelectionModel,extraSelectedModel,paymentMethodModel;
+    private DefaultListModel<Product> cartModel;
+    private PaymentStrategy paymentStrategy;
 
-    String[] cocktailListDefault = {"Margarita","Martini","BloodyMary"};
-    String[] coffeeListDefault = {"Arabica","D'orzo","Decaffeinato"};
-    String[] paymentListDefault = {"Contanti","Carta di credito","Bancomat"};
-    List<String> cocktailListExtra = Arrays.asList("Stuzzichini","Lime","Soda");
-    List<String> coffeeListExtra = Arrays.asList("Cacao", "Latte", "Panna");
-    Boolean isCoffee;
-    int totalPrice=0;
-    Coffee productCoffee;
-    Cocktail productCocktail;
-    PaymentStrategy paymentStrategy;
+    private String[] paymentListDefault = {"Contanti", "Carta di credito", "Bancomat"};
+    private String[] cocktailListDefault = {"Margarita","Martini","BloodyMary"};
+    private String[] coffeeListDefault = {"Arabica","D'orzo","Decaffeinato"};
+    private List<String> cocktailListExtra = Arrays.asList("Stuzzichini","Lime","Soda");
+    private List<String> coffeeListExtra = Arrays.asList("Cacao", "Latte", "Panna");    
+    private Boolean isCoffee;
+    private double totalPrice=0;
+    private Coffee productCoffee;
+    private Cocktail productCocktail;
+
     
     public Controller() {
         this.extraSelectedModel = new DefaultListModel<String>();
