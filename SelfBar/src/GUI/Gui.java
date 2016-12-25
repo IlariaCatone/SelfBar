@@ -23,6 +23,7 @@ public class Gui extends javax.swing.JFrame {
      */
     public Gui() {
         initComponents();
+        //this.setResizable(false);
     }
 
     /**
@@ -347,6 +348,7 @@ public class Gui extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Gui().setVisible(true);
+                
             }
         });
     }
