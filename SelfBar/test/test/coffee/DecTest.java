@@ -16,7 +16,7 @@ import selfbar.Coffee;
 import selfbar.Product;
 import selfbar.Table;
 import selfbar.coffeebase.Arabica;
-import selfbar.coffeebase.Dec;
+import selfbar.coffeebase.Decaffeinato;
 
 /**
  *
@@ -31,7 +31,7 @@ public class DecTest {
     
     @Before
     public void setUp() {
-        coffee = new Dec();
+        coffee = new Decaffeinato();
     }
     
     @Test

@@ -13,11 +13,11 @@ import selfbar.Coffee;
  *
  * @author lores
  */
-public class Dec implements Coffee{
+public class Decaffeinato implements Coffee{
     
     private String name;
 
-    public Dec(){
+    public Decaffeinato(){
         this.name = "decaffeinato";
     }
 
