@@ -74,6 +74,7 @@ public class Controller implements Observer {
     private PaymentStrategy paymentStrategy;
 
     private String[] paymentListDefault = {"Contanti", "Carta di credito", "Bancomat"};
+    
     private String[] cocktailListDefault = {"Margarita", "Martini", "BloodyMary"};
     private String[] coffeeListDefault = {"Arabica", "D'orzo", "Decaffeinato"};
     private List<String> cocktailListExtra = Arrays.asList("Stuzzichini", "Lime", "Soda");
@@ -84,6 +85,8 @@ public class Controller implements Observer {
     private Cocktail productCocktail;
 
     public Controller() {
+        initializeComponent();
+        initializeListener();
         init();
     }
 
@@ -101,11 +104,11 @@ public class Controller implements Observer {
 
     }
 
-    public void showGui() {
+    private void showGui() {
         applicationFrame.setVisible(true);
     }
 
-    public void initializeComponent() {
+    private void initializeComponent() {
         applicationFrame = gui.getApplicationFrame();
         cartPanel = gui.getCartPanel();
         additionPanel = gui.getAdditionPanel();
@@ -126,7 +129,7 @@ public class Controller implements Observer {
         paymentMethodCombo = gui.getBuyMethodCombo();
     }
 
-    public void initializeArticles() {
+    private void initializeArticles() {
         cocktailCombo.setModel(new DefaultComboBoxModel(cocktailListDefault));
         coffeeCombo.setModel(new DefaultComboBoxModel(coffeeListDefault));
         paymentMethodCombo.setModel(new DefaultComboBoxModel(paymentListDefault));
@@ -153,13 +156,12 @@ public class Controller implements Observer {
         }
     }
 
-    public void initializeGui() {
+    private void initializeGui() {
         cartPanel.setVisible(false);
         additionPanel.setVisible(false);
     }
 
-    public void initializeListener() {
-
+    private void initializeListener() {
         comboListener = new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
@@ -184,8 +186,6 @@ public class Controller implements Observer {
                 }
             }
         };
-
-        //Aggiunge l'ordine alla lista del tavolo
         addToCartButton.addMouseListener(new MouseAdapter() {
             Product product;
 
@@ -203,7 +203,6 @@ public class Controller implements Observer {
                 table.addProduct(product);
             }
         });
-
         removeFromCartButton.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
                 if (!cartModel.isEmpty() && cartList.getSelectedIndex() != -1) {
@@ -227,24 +226,6 @@ public class Controller implements Observer {
                 }
             }
         });
-
-        cocktailIcon.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent e) {
-                if (!additionPanel.isVisible()) {
-                    additionPanel.setVisible(true);
-                }
-            }
-
-        });
-
-        coffeeIcon.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent e) {
-                if (!additionPanel.isVisible()) {
-                    additionPanel.setVisible(true);
-                }
-            }
-        });
-
         payButton.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
                 if (paymentMethodCombo.getSelectedIndex() != -1) {
@@ -257,7 +238,7 @@ public class Controller implements Observer {
         });
     }
 
-    public boolean checkAddiction(String str) {
+    private boolean checkAddiction(String str) {
         if (extraSelectedModel.contains(str)) {
             return false;
         }
@@ -360,8 +341,7 @@ public class Controller implements Observer {
         this.extraSelectionCocktailModel = new DefaultListModel<String>();
         this.paymentMethodModel = new DefaultListModel<String>();
         this.cartModel = new DefaultListModel<Product>();
-        initializeComponent();
-        initializeListener();
+        
         initializeArticles();
         initializeGui();
         showGui();

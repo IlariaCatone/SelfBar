@@ -63,7 +63,6 @@ public class Gui extends javax.swing.JFrame {
         payButton = new javax.swing.JButton();
         removeFromCartButton = new javax.swing.JButton();
         buyMethodCombo = new javax.swing.JComboBox<>();
-        successPaymentLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -261,9 +260,6 @@ public class Gui extends javax.swing.JFrame {
 
         buyMethodCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        successPaymentLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        successPaymentLabel.setText("Cozzamara");
-
         javax.swing.GroupLayout cartPanelLayout = new javax.swing.GroupLayout(cartPanel);
         cartPanel.setLayout(cartPanelLayout);
         cartPanelLayout.setHorizontalGroup(
@@ -284,8 +280,7 @@ public class Gui extends javax.swing.JFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cartPanelLayout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(payButton))
-                            .addComponent(buyMethodCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(successPaymentLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(buyMethodCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addContainerGap())))
         );
         cartPanelLayout.setVerticalGroup(
@@ -304,9 +299,7 @@ public class Gui extends javax.swing.JFrame {
                 .addComponent(buyMethodCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(3, 3, 3)
                 .addComponent(payButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(successPaymentLabel)
-                .addContainerGap())
+                .addContainerGap(51, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -401,7 +394,6 @@ public class Gui extends javax.swing.JFrame {
     private javax.swing.JLabel priceCocktailLabel;
     private javax.swing.JLabel priceCoffeeLabel;
     private javax.swing.JButton removeFromCartButton;
-    private javax.swing.JLabel successPaymentLabel;
     private javax.swing.JLabel totalPrice;
     // End of variables declaration//GEN-END:variables
 
@@ -487,9 +479,6 @@ public class Gui extends javax.swing.JFrame {
         return buyMethodCombo;
     }
 
-    public JLabel getSuccessPaymentLabel() {
-        return successPaymentLabel;
-    }
     
     
     

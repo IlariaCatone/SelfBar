@@ -21,10 +21,6 @@ public class Martini implements Cocktail {
         this.name = "martini";
     }
 
-    private String getName() {
-        return name;
-    }
-
     @Override
     public double getPrice() {
         return 3;

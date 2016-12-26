@@ -21,10 +21,6 @@ public class Barley implements Coffee{
         this.name = "d'orzo";
     }
 
-    private String getName() {
-        return name;
-    }
-
     @Override
     public double getPrice() {
         return 1;

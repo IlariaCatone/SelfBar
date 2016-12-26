@@ -14,16 +14,13 @@ import selfbar.Cocktail;
  * @author lores
  */
 public class Margarita implements Cocktail {
+    
     private String name;
 
     public Margarita(){
         this.name = "margarita";
     }
-
-    private String getName() {
-        return name;
-    }
-
+    
     @Override
     public double getPrice() {
         return 3;

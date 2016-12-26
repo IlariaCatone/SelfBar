@@ -21,9 +21,6 @@ public class Arabica implements Coffee{
         this.name = "arabica";
     }
 
-    private String getName() {
-        return name;
-    }
 
     @Override
     public double getPrice() {
