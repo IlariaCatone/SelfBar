@@ -23,7 +23,7 @@ public class Gui extends javax.swing.JFrame {
      */
     public Gui() {
         initComponents();
-        //this.setResizable(false);
+        this.setResizable(false);
     }
 
     /**
@@ -55,6 +55,7 @@ public class Gui extends javax.swing.JFrame {
         extraList = new javax.swing.JList<>();
         jLabel10 = new javax.swing.JLabel();
         addToCartButton = new javax.swing.JButton();
+        removeExtraButton = new javax.swing.JButton();
         cartPanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -146,7 +147,7 @@ public class Gui extends javax.swing.JFrame {
                 .addComponent(cocktailCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(11, 11, 11)
                 .addComponent(priceCocktailLabel)
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         jLabel9.setText("Supplementi");
@@ -176,6 +177,13 @@ public class Gui extends javax.swing.JFrame {
             }
         });
 
+        removeExtraButton.setText("Rimuovi");
+        removeExtraButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removeExtraButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout additionPanelLayout = new javax.swing.GroupLayout(additionPanel);
         additionPanel.setLayout(additionPanelLayout);
         additionPanelLayout.setHorizontalGroup(
@@ -189,11 +197,13 @@ public class Gui extends javax.swing.JFrame {
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(additionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel10)
                     .addGroup(additionPanelLayout.createSequentialGroup()
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(additionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(removeExtraButton)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(addToCartButton))
-                    .addComponent(jLabel10))
+                        .addComponent(addToCartButton)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         additionPanelLayout.setVerticalGroup(
@@ -206,12 +216,14 @@ public class Gui extends javax.swing.JFrame {
                         .addGroup(additionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel9)
                             .addComponent(jLabel10))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(additionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(24, 24, 24)
+                        .addGroup(additionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane2)
+                            .addComponent(jScrollPane3))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(addAdditionButton)
+                .addGroup(additionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(addAdditionButton)
+                    .addComponent(removeExtraButton))
                 .addContainerGap(22, Short.MAX_VALUE))
         );
 
@@ -232,7 +244,7 @@ public class Gui extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cocktailPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE)
+                    .addComponent(cocktailPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 219, Short.MAX_VALUE)
                     .addComponent(coffePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(additionPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -299,7 +311,7 @@ public class Gui extends javax.swing.JFrame {
                 .addComponent(buyMethodCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(3, 3, 3)
                 .addComponent(payButton)
-                .addContainerGap(51, Short.MAX_VALUE))
+                .addContainerGap(57, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -326,6 +338,10 @@ public class Gui extends javax.swing.JFrame {
     private void addToCartButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addToCartButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_addToCartButtonActionPerformed
+
+    private void removeExtraButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeExtraButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_removeExtraButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -393,6 +409,7 @@ public class Gui extends javax.swing.JFrame {
     private javax.swing.JButton payButton;
     private javax.swing.JLabel priceCocktailLabel;
     private javax.swing.JLabel priceCoffeeLabel;
+    private javax.swing.JButton removeExtraButton;
     private javax.swing.JButton removeFromCartButton;
     private javax.swing.JLabel totalPrice;
     // End of variables declaration//GEN-END:variables
@@ -478,6 +495,12 @@ public class Gui extends javax.swing.JFrame {
     public JComboBox<String> getBuyMethodCombo() {
         return buyMethodCombo;
     }
+
+    public JButton getRemoveExtraButton() {
+        return removeExtraButton;
+    }
+    
+    
 
     
     
