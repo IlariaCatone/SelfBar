@@ -228,12 +228,17 @@ public class Controller implements Observer {
         });
         payButton.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
-                if (paymentMethodCombo.getSelectedIndex() != -1) {
+                if ((paymentMethodCombo.getSelectedIndex() != -1)&&(cartModel.size()>0)) {
                     initPaymentMethod((String) paymentMethodCombo.getSelectedItem());
                     table.setPaymentStrategy(paymentStrategy);
                     JOptionPane.showMessageDialog( applicationFrame , table.pay());
                     init();
                 }
+                else{
+                    
+                    JOptionPane.showMessageDialog(applicationFrame,
+                        "Mi spiace per alcuni errori non puoi effettuare il pagamento \nControlla di aver selezionato un metodo di pagamento\ne che tu abbia degli ordini da pagare",
+                        "Inane error",JOptionPane.ERROR_MESSAGE);                }
             }
         });
     }
