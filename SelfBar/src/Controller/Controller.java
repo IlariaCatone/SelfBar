@@ -170,37 +170,26 @@ public class Controller implements Observer {
                     extraSelectedModel.removeAllElements();
                     if (e.getSource().equals(coffeeCombo)) {
                         isCoffee = true;
-
                         additionList.setModel(extraSelectionCoffeeModel);
-                        initCoffee(coffeeCombo.getSelectedItem().toString());
-                        //addCoffeeDecoration("Latte");
-
                         cocktailCombo.setSelectedIndex(-1);
                     } else {
                         isCoffee = false;
-
                         additionList.setModel(extraSelectionCocktailModel);
-                        initCocktail(cocktailCombo.getSelectedItem().toString());
                         coffeeCombo.setSelectedIndex(-1);
                     }
                 }
             }
         };
         addToCartButton.addMouseListener(new MouseAdapter() {
-            Product product;
-
             public void mouseClicked(MouseEvent e) {
                 if (isCoffee) {
-                    product = productCoffee;
-                    System.out.println("Caffe prova " + product.getDescription());
-
+                    getDecoratedCoffee();
+                    table.addProduct(productCoffee);
                 } else {
-                    product = productCocktail;
-                    //System.out.println("Cocktail prova "+product.getDescription());
-
+                    getDecoratedCocktail();
+                    table.addProduct(productCocktail);
                 }
-
-                table.addProduct(product);
+                
             }
         });
         removeFromCartButton.addMouseListener(new MouseAdapter() {
@@ -218,11 +207,6 @@ public class Controller implements Observer {
                     if (extraSelectedModel.getSize() < MAX_ADDICTION) {
                         extraSelectedModel.addElement(selection);
                     }
-                    if (isCoffee) {
-                        addCoffeeDecoration(selection);
-                    } else {
-                        addCocktailDecoration(selection);
-                    }
                 }
             }
         });
@@ -236,6 +220,21 @@ public class Controller implements Observer {
                 }
             }
         });
+    }
+    
+    
+    private void getDecoratedCoffee() {
+        initCoffee(coffeeCombo.getSelectedItem().toString());
+        for (int i = 0; i < extraSelectedModel.size(); i++) {
+            addCoffeeDecoration(extraSelectedModel.get(i).toString());
+        }         
+    }
+    
+    private void getDecoratedCocktail() {
+        initCocktail(cocktailCombo.getSelectedItem().toString());
+        for (int i = 0; i < extraSelectedModel.size(); i++) {
+            addCocktailDecoration(extraSelectedModel.get(i).toString());
+        }
     }
 
     private boolean checkAddiction(String str) {
