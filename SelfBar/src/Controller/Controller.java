@@ -139,6 +139,7 @@ public class Controller implements Observer {
         coffeeCombo.addItemListener(comboListener);
         cocktailCombo.setSelectedItem(null);
         coffeeCombo.setSelectedItem(null);
+        paymentMethodCombo.setSelectedItem(null);
         initCoffeeModel();
         initCocktailModel();
         totalPrice=0;
@@ -354,7 +355,6 @@ public class Controller implements Observer {
         this.extraSelectionCocktailModel = new DefaultListModel<String>();
         this.paymentMethodModel = new DefaultListModel<String>();
         this.cartModel = new DefaultListModel<Product>();
-        
         initializeArticles();
         initializeGui();
         showGui();
