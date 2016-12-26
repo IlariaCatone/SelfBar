@@ -28,6 +28,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import selfbar.Cocktail;
 import selfbar.Coffee;
@@ -55,46 +56,37 @@ import selfbar.payment.PaymentStrategy;
  *
  * @author Remei
  */
-public class Controller implements Observer{
-    
-    private final int MAX_ADDICTION=3;
-    
-    private Gui gui=new Gui();
+public class Controller implements Observer {
+
+    private final int MAX_ADDICTION = 3;
+
+    private Gui gui = new Gui();
     private Table table;
     private JFrame applicationFrame;
-    private JPanel cartPanel,additionPanel;
-    private JList cartList,additionList,extraList;
-    private JLabel totalPriceLabel,priceCoffeeLabel,priceCocktailLabel,coffeeIcon,cocktailIcon,successPaymentLabel;
-    private JButton addAdditionButton,payButton,addToCartButton,removeFromCartButton;
-    private JComboBox<String> coffeeCombo,cocktailCombo,paymentMethodCombo;
+    private JPanel cartPanel, additionPanel;
+    private JList cartList, additionList, extraList;
+    private JLabel totalPriceLabel, priceCoffeeLabel, priceCocktailLabel, coffeeIcon, cocktailIcon;
+    private JButton addAdditionButton, payButton, addToCartButton, removeFromCartButton;
+    private JComboBox<String> coffeeCombo, cocktailCombo, paymentMethodCombo;
     private ItemListener comboListener;
-    private DefaultListModel extraSelectionModel,extraSelectedModel,paymentMethodModel;
+    private DefaultListModel extraSelectionCoffeeModel, extraSelectionCocktailModel, extraSelectedModel, paymentMethodModel;
     private DefaultListModel<Product> cartModel;
     private PaymentStrategy paymentStrategy;
 
     private String[] paymentListDefault = {"Contanti", "Carta di credito", "Bancomat"};
-    private String[] cocktailListDefault = {"Margarita","Martini","BloodyMary"};
-    private String[] coffeeListDefault = {"Arabica","D'orzo","Decaffeinato"};
-    private List<String> cocktailListExtra = Arrays.asList("Stuzzichini","Lime","Soda");
-    private List<String> coffeeListExtra = Arrays.asList("Cacao", "Latte", "Panna");    
+    private String[] cocktailListDefault = {"Margarita", "Martini", "BloodyMary"};
+    private String[] coffeeListDefault = {"Arabica", "D'orzo", "Decaffeinato"};
+    private List<String> cocktailListExtra = Arrays.asList("Stuzzichini", "Lime", "Soda");
+    private List<String> coffeeListExtra = Arrays.asList("Cacao", "Latte", "Panna");
     private Boolean isCoffee;
-    private double totalPrice=0;
+    private double totalPrice;
     private Coffee productCoffee;
     private Cocktail productCocktail;
 
-    
     public Controller() {
-        this.extraSelectedModel = new DefaultListModel<String>();
-        this.extraSelectionModel = new DefaultListModel<String>();
-        this.paymentMethodModel=new DefaultListModel<String>();
-        this.cartModel = new DefaultListModel<Product>();
-        initializeComponent();
-        initializeListener();
-        initializeArticles();
-        initializeGui();
-        showGui();
+        init();
     }
-    
+
     @Override
     public void updateAdd(Product product) {
         cartPanel.setVisible(true);
@@ -104,41 +96,37 @@ public class Controller implements Observer{
 
     @Override
     public void updateRemove(Product product) {
-        System.out.println("removing...");
-        
-         System.out.println("update : "+product.getDescription());
-        updateTotalPrice(product.getPrice()*-1);
+        updateTotalPrice(product.getPrice() * -1);
         updateRemoveCartModel(product);
 
     }
-    
-    public void showGui(){
+
+    public void showGui() {
         applicationFrame.setVisible(true);
     }
-    
-    public void initializeComponent(){
-        applicationFrame=gui.getApplicationFrame();
-        cartPanel=gui.getCartPanel();
-        additionPanel=gui.getAdditionPanel();
-        cartList=gui.getCartList();
-        additionList=gui.getAdditionList();
-        totalPriceLabel=gui.getTotalPrice();
-        priceCocktailLabel=gui.getPriceCocktailLabel();
-        priceCoffeeLabel=gui.getPriceCoffeeLabel();
-        successPaymentLabel=gui.getSuccessPaymentLabel();
-        coffeeIcon=gui.getCoffeeIcon();
-        cocktailIcon=gui.getCocktailIcon();
-        addAdditionButton=gui.getAddAdditionButton();
-        payButton=gui.getPayButton();
-        removeFromCartButton=gui.getRemoveFromCartButton();
-        addToCartButton=gui.getAddToCartButton();
-        cocktailCombo=gui.getCocktailCombo();
-        coffeeCombo=gui.getCoffeeCombo();
-        extraList=gui.getExtraList();
-        paymentMethodCombo=gui.getBuyMethodCombo();
+
+    public void initializeComponent() {
+        applicationFrame = gui.getApplicationFrame();
+        cartPanel = gui.getCartPanel();
+        additionPanel = gui.getAdditionPanel();
+        cartList = gui.getCartList();
+        additionList = gui.getAdditionList();
+        totalPriceLabel = gui.getTotalPrice();
+        priceCocktailLabel = gui.getPriceCocktailLabel();
+        priceCoffeeLabel = gui.getPriceCoffeeLabel();
+        coffeeIcon = gui.getCoffeeIcon();
+        cocktailIcon = gui.getCocktailIcon();
+        addAdditionButton = gui.getAddAdditionButton();
+        payButton = gui.getPayButton();
+        removeFromCartButton = gui.getRemoveFromCartButton();
+        addToCartButton = gui.getAddToCartButton();
+        cocktailCombo = gui.getCocktailCombo();
+        coffeeCombo = gui.getCoffeeCombo();
+        extraList = gui.getExtraList();
+        paymentMethodCombo = gui.getBuyMethodCombo();
     }
-    
-    public void initializeArticles(){
+
+    public void initializeArticles() {
         cocktailCombo.setModel(new DefaultComboBoxModel(cocktailListDefault));
         coffeeCombo.setModel(new DefaultComboBoxModel(coffeeListDefault));
         paymentMethodCombo.setModel(new DefaultComboBoxModel(paymentListDefault));
@@ -148,235 +136,234 @@ public class Controller implements Observer{
         coffeeCombo.addItemListener(comboListener);
         cocktailCombo.setSelectedItem(null);
         coffeeCombo.setSelectedItem(null);
-        
+        initCoffeeModel();
+        initCocktailModel();
+        totalPrice=0;
     }
-    
-    public void initializeGui(){
+
+    private void initCoffeeModel() {
+        for (int i = 0; i < coffeeListExtra.size(); i++) {
+            extraSelectionCoffeeModel.add(i, coffeeListExtra.get(i));
+        }
+    }
+
+    private void initCocktailModel() {
+        for (int i = 0; i < cocktailListExtra.size(); i++) {
+            extraSelectionCocktailModel.add(i, cocktailListExtra.get(i));
+        }
+    }
+
+    public void initializeGui() {
         cartPanel.setVisible(false);
         additionPanel.setVisible(false);
-        successPaymentLabel.setVisible(false);
     }
-    
-    public void initializeListener(){
-       
-                
-        comboListener=new ItemListener() {
+
+    public void initializeListener() {
+
+        comboListener = new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
-                if(e.getStateChange() == ItemEvent.SELECTED) {
+                if (e.getStateChange() == ItemEvent.SELECTED) {
                     additionPanel.setVisible(true);
                     extraSelectedModel.removeAllElements();
-                    if(e.getSource().equals(coffeeCombo)){
-                        isCoffee=true;
-                        changeListObject(coffeeListExtra);
+                    if (e.getSource().equals(coffeeCombo)) {
+                        isCoffee = true;
+
+                        additionList.setModel(extraSelectionCoffeeModel);
                         initCoffee(coffeeCombo.getSelectedItem().toString());
                         //addCoffeeDecoration("Latte");
-                        
+
                         cocktailCombo.setSelectedIndex(-1);
-                    }
-                else{
-                        isCoffee=false;
-                        changeListObject(cocktailListExtra);
+                    } else {
+                        isCoffee = false;
+
+                        additionList.setModel(extraSelectionCocktailModel);
                         initCocktail(cocktailCombo.getSelectedItem().toString());
                         coffeeCombo.setSelectedIndex(-1);
+                    }
                 }
             }
-        }};
-        
-       //Aggiunge l'ordine alla lista del tavolo
-       addToCartButton.addMouseListener(new MouseAdapter() {
-                Product product;
-                public void mouseClicked(MouseEvent e) {
-                 if(isCoffee){
-                     product= productCoffee;
-                     System.out.println("Caffe prova "+product.getDescription());
-                     
-                    }else{
-                     product=productCocktail;
-                     //System.out.println("Cocktail prova "+product.getDescription());
+        };
 
-                    }
-       
+        //Aggiunge l'ordine alla lista del tavolo
+        addToCartButton.addMouseListener(new MouseAdapter() {
+            Product product;
+
+            public void mouseClicked(MouseEvent e) {
+                if (isCoffee) {
+                    product = productCoffee;
+                    System.out.println("Caffe prova " + product.getDescription());
+
+                } else {
+                    product = productCocktail;
+                    //System.out.println("Cocktail prova "+product.getDescription());
+
+                }
+
                 table.addProduct(product);
-                }});
-       
-       removeFromCartButton.addMouseListener(new MouseAdapter() {
-           public void mouseClicked(MouseEvent e) {
-               if(!cartModel.isEmpty()&&cartList.getSelectedIndex()!=-1){
-               Product tmp=(Product) cartList.getSelectedValue();
-               table.removeProduct(tmp);    
-            }  
-}});
+            }
+        });
+
+        removeFromCartButton.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                if (!cartModel.isEmpty() && cartList.getSelectedIndex() != -1) {
+                    Product tmp = (Product) cartList.getSelectedValue();
+                    table.removeProduct(tmp);
+                }
+            }
+        });
         addAdditionButton.addMouseListener(new MouseAdapter() {
-                public void mouseClicked(MouseEvent e) {
-                    if(!additionList.isSelectionEmpty()&&checkAddiction(additionList.getSelectedValue().toString())){
-                        String selection=(String) additionList.getSelectedValue();
-                        if (extraSelectedModel.getSize()<MAX_ADDICTION)
+            public void mouseClicked(MouseEvent e) {
+                if (!additionList.isSelectionEmpty() && checkAddiction(additionList.getSelectedValue().toString())) {
+                    String selection = (String) additionList.getSelectedValue();
+                    if (extraSelectedModel.getSize() < MAX_ADDICTION) {
                         extraSelectedModel.addElement(selection);
-                        if (isCoffee){
-                            addCoffeeDecoration(selection);
-                        }else{
-                            addCocktailDecoration(selection);
-                        }
+                    }
+                    if (isCoffee) {
+                        addCoffeeDecoration(selection);
+                    } else {
+                        addCocktailDecoration(selection);
                     }
                 }
-            });
-        
+            }
+        });
+
         cocktailIcon.addMouseListener(new MouseAdapter() {
-                public void mouseClicked(MouseEvent e) {
-                    if(!additionPanel.isVisible()) additionPanel.setVisible(true);
+            public void mouseClicked(MouseEvent e) {
+                if (!additionPanel.isVisible()) {
+                    additionPanel.setVisible(true);
                 }
-                    
-            });
-        
+            }
+
+        });
+
         coffeeIcon.addMouseListener(new MouseAdapter() {
-                public void mouseClicked(MouseEvent e) {
-                    if(!additionPanel.isVisible()) additionPanel.setVisible(true);
+            public void mouseClicked(MouseEvent e) {
+                if (!additionPanel.isVisible()) {
+                    additionPanel.setVisible(true);
                 }
-            });
-        
+            }
+        });
+
         payButton.addMouseListener(new MouseAdapter() {
-                public void mouseClicked(MouseEvent e) {
-                   if(paymentMethodCombo.getSelectedIndex()!=-1){
-                       initPaymentMethod((String) paymentMethodCombo.getSelectedItem());
-                       table.setPaymentStrategy(paymentStrategy);
-                       successPaymentLabel.setText(table.pay());
-                       successPaymentLabel.setVisible(true);
-                       
-                   }
+            public void mouseClicked(MouseEvent e) {
+                if (paymentMethodCombo.getSelectedIndex() != -1) {
+                    initPaymentMethod((String) paymentMethodCombo.getSelectedItem());
+                    table.setPaymentStrategy(paymentStrategy);
+                    JOptionPane.showMessageDialog( applicationFrame , table.pay());
+                    init();
                 }
-            });
-        
-        
-        
+            }
+        });
     }
-   
-    public boolean checkAddiction(String str){
-        if (extraSelectedModel.contains(str))
+
+    public boolean checkAddiction(String str) {
+        if (extraSelectedModel.contains(str)) {
             return false;
+        }
         return true;
-    }
-    
-    public void changeListObject(List<String> tmpArray){
-        extraSelectionModel.removeAllElements();
-        additionList.removeAll();
-        for(int i=0;i<tmpArray.size();i++){
-            extraSelectionModel.add(i,tmpArray.get(i));
-        }
-        additionList.setModel(extraSelectionModel);
-    }
-   
-    private ArrayList<String> modelToList(DefaultListModel defaultListModel ){
-        ArrayList<String> res=new ArrayList<>();
-        int n=defaultListModel.getSize();
-        for(int i=0;i<n;i++){
-            res.add((String) defaultListModel.get(i));
-        }
-        return res;
     }
 
     public void setTable(Table table) {
         this.table = table;
     }
-    
-    private void initCoffee(String tmp){
-        switch(tmp){
+
+    private void initCoffee(String tmp) {
+        switch (tmp) {
             case "Arabica":
-                productCoffee= new Arabica();
+                productCoffee = new Arabica();
                 System.out.println("init " + tmp);
                 break;
             case "D'orzo":
-                productCoffee= new Barley();
+                productCoffee = new Barley();
                 System.out.println("init " + tmp);
                 break;
             case "Decaffeinato":
-                productCoffee= new Decaffeinato();
+                productCoffee = new Decaffeinato();
                 System.out.println("init " + tmp);
-                break;                                
+                break;
         }
-        
     }
-    
-    private void initCocktail(String tmp){
-        switch(tmp){
+
+    private void initCocktail(String tmp) {
+        switch (tmp) {
             case "BloodyMary":
-                productCocktail= new BloodyMary();
+                productCocktail = new BloodyMary();
                 break;
             case "Margarita":
-                productCocktail= new Margarita();
+                productCocktail = new Margarita();
                 break;
             case "Martini":
-                productCocktail= new Martini();
-                break;                                
-        }   
+                productCocktail = new Martini();
+                break;
+        }
     }
-    
-    private void initPaymentMethod(String tmp){
-        switch(tmp){
+
+    private void initPaymentMethod(String tmp) {
+        switch (tmp) {
             case "Contanti":
                 paymentStrategy = new CashPayment();
                 break;
             case "Carta di credito":
-                paymentStrategy= new CreditCardPayment();
+                paymentStrategy = new CreditCardPayment();
                 break;
             case "Bancomat":
-                paymentStrategy= new BancomatPayment();
-                break;                                
-        }   
+                paymentStrategy = new BancomatPayment();
+                break;
+        }
     }
-    
-    private void addCoffeeDecoration(String tmp){
-         switch(tmp){
-               case "Cacao":
-                   productCoffee=new Cocoa(productCoffee);
-                   break;
-               case "Panna":
-                   productCoffee=new Cream(productCoffee);
-                   break;
-               case "Latte":
-                   productCoffee=new Milk(productCoffee);
-                   break;
-           }
+
+    private void addCoffeeDecoration(String tmp) {
+        switch (tmp) {
+            case "Cacao":
+                productCoffee = new Cocoa(productCoffee);
+                break;
+            case "Panna":
+                productCoffee = new Cream(productCoffee);
+                break;
+            case "Latte":
+                productCoffee = new Milk(productCoffee);
+                break;
+        }
     }
-    
-     private void addCocktailDecoration(String tmp){
-         switch(tmp){
-               case "Stuzzichini":
-                   productCocktail=new Appetizer(productCocktail);
-                   break;
-               case "Soda":
-                   productCocktail=new Soda(productCocktail);
-                   break;
-               case "Lime":
-                   productCocktail=new Lime(productCocktail);
-                   break;
-           }
+
+    private void addCocktailDecoration(String tmp) {
+        switch (tmp) {
+            case "Stuzzichini":
+                productCocktail = new Appetizer(productCocktail);
+                break;
+            case "Soda":
+                productCocktail = new Soda(productCocktail);
+                break;
+            case "Lime":
+                productCocktail = new Lime(productCocktail);
+                break;
+        }
     }
-    
-    private void updateAddCartModel(Product tmp){
+
+    private void updateAddCartModel(Product tmp) {
         cartModel.addElement(tmp);
     }
-    
-     private void updateRemoveCartModel(Product pr){
-        cartModel.removeElement(pr);
-        /*int i=cartModel.indexOf(pr);
-        System.out.println("s"+i);
-        cartModel.removeAllElements();
-                System.out.println("s"+cartModel.size());
 
-        cartList.removeAll();
-        cartList.updateUI();*/
-        //cartList.setModel(cartModel);
+    private void updateRemoveCartModel(Product pr) {
+        cartModel.removeElement(pr);
     }
-    
-    private void updateTotalPrice(double tmp){
-        totalPrice+=tmp;
-        totalPriceLabel.setText("Prezzo: "+totalPrice);
+
+    private void updateTotalPrice(double tmp) {
+        totalPrice += tmp;
+        totalPriceLabel.setText("Prezzo: " + totalPrice);
     }
-    
-    private void resetAll(){
-        //resetta dopo il pagamento
+
+    private void init() {
+        this.extraSelectedModel = new DefaultListModel<String>();
+        this.extraSelectionCoffeeModel = new DefaultListModel<String>();
+        this.extraSelectionCocktailModel = new DefaultListModel<String>();
+        this.paymentMethodModel = new DefaultListModel<String>();
+        this.cartModel = new DefaultListModel<Product>();
+        initializeComponent();
+        initializeListener();
+        initializeArticles();
+        initializeGui();
+        showGui();
     }
-    
-    
 }
