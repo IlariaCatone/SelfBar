@@ -201,7 +201,7 @@ public class Controller implements Observer {
             }
         });
         
-        removeExtraButton.addMouseListener(new MouseAdapter() {
+        removeExtraButton.addMouseListener(new MouseAdapter() {//ciaoo
             public void mouseClicked(MouseEvent e) {
                 if (!extraSelectedModel.isEmpty() && extraList.getSelectedIndex() != -1) {
                     String tmp=(String) extraList.getSelectedValue();
@@ -229,7 +229,6 @@ public class Controller implements Observer {
                     init();
                 }
                 else{
-                    
                     JOptionPane.showMessageDialog(applicationFrame,
                         "Mi spiace per alcuni errori non puoi effettuare il pagamento \nControlla di aver selezionato un metodo di pagamento\ne che tu abbia degli ordini da pagare",
                         "Inane error",JOptionPane.ERROR_MESSAGE);                }
