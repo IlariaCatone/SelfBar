@@ -66,7 +66,7 @@ public class Controller implements Observer {
     private JPanel cartPanel, additionPanel;
     private JList cartList, additionList, extraList;
     private JLabel totalPriceLabel, priceCoffeeLabel, priceCocktailLabel, coffeeIcon, cocktailIcon;
-    private JButton addAdditionButton, payButton, addToCartButton, removeFromCartButton;
+    private JButton addAdditionButton, payButton, addToCartButton, removeFromCartButton,removeExtraButton;
     private JComboBox<String> coffeeCombo, cocktailCombo, paymentMethodCombo;
     private ItemListener comboListener;
     private DefaultListModel extraSelectionCoffeeModel, extraSelectionCocktailModel, extraSelectedModel, paymentMethodModel;
@@ -74,7 +74,6 @@ public class Controller implements Observer {
     private PaymentStrategy paymentStrategy;
 
     private String[] paymentListDefault = {"Contanti", "Carta di credito", "Bancomat"};
-    
     private String[] cocktailListDefault = {"Margarita", "Martini", "BloodyMary"};
     private String[] coffeeListDefault = {"Arabica", "D'orzo", "Decaffeinato"};
     private List<String> cocktailListExtra = Arrays.asList("Stuzzichini", "Lime", "Soda");
@@ -121,6 +120,7 @@ public class Controller implements Observer {
         cocktailIcon = gui.getCocktailIcon();
         addAdditionButton = gui.getAddAdditionButton();
         payButton = gui.getPayButton();
+        removeExtraButton=gui.getRemoveExtraButton();
         removeFromCartButton = gui.getRemoveFromCartButton();
         addToCartButton = gui.getAddToCartButton();
         cocktailCombo = gui.getCocktailCombo();
@@ -170,7 +170,6 @@ public class Controller implements Observer {
                     extraSelectedModel.removeAllElements();
                     if (e.getSource().equals(coffeeCombo)) {
                         isCoffee = true;
-
                         additionList.setModel(extraSelectionCoffeeModel);
                         initCoffee(coffeeCombo.getSelectedItem().toString());
                         //addCoffeeDecoration("Latte");
@@ -178,7 +177,6 @@ public class Controller implements Observer {
                         cocktailCombo.setSelectedIndex(-1);
                     } else {
                         isCoffee = false;
-
                         additionList.setModel(extraSelectionCocktailModel);
                         initCocktail(cocktailCombo.getSelectedItem().toString());
                         coffeeCombo.setSelectedIndex(-1);
@@ -211,6 +209,16 @@ public class Controller implements Observer {
                 }
             }
         });
+        
+        removeExtraButton.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                if (!extraSelectedModel.isEmpty() && extraList.getSelectedIndex() != -1) {
+                    String tmp=(String) extraList.getSelectedValue();
+                    extraSelectedModel.removeElement(tmp);
+                }
+            }
+        });
+        
         addAdditionButton.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
                 if (!additionList.isSelectionEmpty() && checkAddiction(additionList.getSelectedValue().toString())) {
