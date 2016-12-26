@@ -66,7 +66,7 @@ public class Controller implements Observer {
     private JPanel cartPanel, additionPanel;
     private JList cartList, additionList, extraList;
     private JLabel totalPriceLabel, priceCoffeeLabel, priceCocktailLabel, coffeeIcon, cocktailIcon;
-    private JButton addAdditionButton, payButton, addToCartButton, removeFromCartButton;
+    private JButton addAdditionButton, payButton, addToCartButton, removeFromCartButton,removeExtraButton;
     private JComboBox<String> coffeeCombo, cocktailCombo, paymentMethodCombo;
     private ItemListener comboListener;
     private DefaultListModel extraSelectionCoffeeModel, extraSelectionCocktailModel, extraSelectedModel, paymentMethodModel;
@@ -74,7 +74,6 @@ public class Controller implements Observer {
     private PaymentStrategy paymentStrategy;
 
     private String[] paymentListDefault = {"Contanti", "Carta di credito", "Bancomat"};
-    
     private String[] cocktailListDefault = {"Margarita", "Martini", "BloodyMary"};
     private String[] coffeeListDefault = {"Arabica", "D'orzo", "Decaffeinato"};
     private List<String> cocktailListExtra = Arrays.asList("Stuzzichini", "Lime", "Soda");
@@ -121,6 +120,7 @@ public class Controller implements Observer {
         cocktailIcon = gui.getCocktailIcon();
         addAdditionButton = gui.getAddAdditionButton();
         payButton = gui.getPayButton();
+        removeExtraButton=gui.getRemoveExtraButton();
         removeFromCartButton = gui.getRemoveFromCartButton();
         addToCartButton = gui.getAddToCartButton();
         cocktailCombo = gui.getCocktailCombo();
@@ -200,6 +200,16 @@ public class Controller implements Observer {
                 }
             }
         });
+        
+        removeExtraButton.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                if (!extraSelectedModel.isEmpty() && extraList.getSelectedIndex() != -1) {
+                    String tmp=(String) extraList.getSelectedValue();
+                    extraSelectedModel.removeElement(tmp);
+                }
+            }
+        });
+        
         addAdditionButton.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
                 if (!additionList.isSelectionEmpty() && checkAddiction(additionList.getSelectedValue().toString())) {
@@ -212,12 +222,17 @@ public class Controller implements Observer {
         });
         payButton.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
-                if (paymentMethodCombo.getSelectedIndex() != -1) {
+                if ((paymentMethodCombo.getSelectedIndex() != -1)&&(cartModel.size()>0)) {
                     initPaymentMethod((String) paymentMethodCombo.getSelectedItem());
                     table.setPaymentStrategy(paymentStrategy);
                     JOptionPane.showMessageDialog( applicationFrame , table.pay());
                     init();
                 }
+                else{
+                    
+                    JOptionPane.showMessageDialog(applicationFrame,
+                        "Mi spiace per alcuni errori non puoi effettuare il pagamento \nControlla di aver selezionato un metodo di pagamento\ne che tu abbia degli ordini da pagare",
+                        "Inane error",JOptionPane.ERROR_MESSAGE);                }
             }
         });
     }
