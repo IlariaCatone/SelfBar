@@ -13,9 +13,6 @@ import selfbar.Product;
 import selfbar.Table;
 import selfbar.coffeebase.*;
 
-/**
- * Created by Remeic on 14/12/2016.
- */
 public class TableTest {
 
     Table table;

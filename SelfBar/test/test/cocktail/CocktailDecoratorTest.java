@@ -12,10 +12,6 @@ import selfbar.cocktaildecorators.Appetizer;
 import selfbar.cocktaildecorators.Lime;
 import selfbar.cocktaildecorators.Soda;
 
-
-/**
- * Created by Remei on 13/12/2016.
- */
 public class CocktailDecoratorTest {
     
     Cocktail cocktail;

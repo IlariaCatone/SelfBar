@@ -2,9 +2,6 @@ package selfbar;
 
 import selfbar.Cocktail;
 
-/**
- * Created by lores on 11/12/2016.
- */
 public abstract class CocktailDecorator implements Cocktail {
 
     protected String decoration;

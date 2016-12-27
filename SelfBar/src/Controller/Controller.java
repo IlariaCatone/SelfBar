@@ -52,10 +52,6 @@ import selfbar.payment.CashPayment;
 import selfbar.payment.CreditCardPayment;
 import selfbar.payment.PaymentStrategy;
 
-/**
- *
- * @author Remei
- */
 public class Controller implements Observer {
 
     private final int MAX_ADDICTION = 3;

@@ -12,10 +12,6 @@ import selfbar.Product;
 import selfbar.coffeebase.Arabica;
 import selfbar.coffeedecorators.*;
 
-
-/**
- * Created by Remei on 13/12/2016.
- */
 public class CoffeeDecoratorTest {
     
     Coffee coffee;

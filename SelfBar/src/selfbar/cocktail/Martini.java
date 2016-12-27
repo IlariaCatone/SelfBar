@@ -1,19 +1,7 @@
 package selfbar.cocktail;
 
-
 import selfbar.Cocktail;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-
-/**
- *
- * @author lores
- */
 public class Martini implements Cocktail {
     private String name;
 

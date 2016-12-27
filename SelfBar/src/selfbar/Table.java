@@ -3,9 +3,6 @@ package selfbar;
 import java.util.ArrayList;
 import selfbar.payment.PaymentStrategy;
 
-/**
- * Created by lores on 12/12/2016.
- */
 public class Table implements Observable {
 
     private ArrayList<Product> products;

@@ -2,17 +2,6 @@ package selfbar.coffeebase;
 
 import selfbar.Coffee;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-
-/**
- *
- * @author lores
- */
 public class Decaffeinato implements Coffee{
     
     private String name;
